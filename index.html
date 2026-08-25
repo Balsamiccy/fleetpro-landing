@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Collector Studio — Classic Car Collection Intelligence</title>
+<meta name="description" content="The only platform built exclusively for classic car collectors. Fleet management, AI-powered valuations and real market intelligence in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #080e1f;
+    --bg2:       #0d1530;
+    --surface:   rgba(255,255,255,0.04);
+    --border:    rgba(255,255,255,0.08);
+    --accent:    #4f8ef7;
+    --accent2:   #7c3aed;
+    --gold:      #c9a84c;
+    --gold2:     #e8c97a;
+    --text:      #f0ece4;
+    --text2:     rgba(240,236,228,0.55);
+    --text3:     rgba(240,236,228,0.30);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    padding: 20px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(8,14,31,0.95), transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 16px rgba(79,142,247,0.4);
+  }
+
+  .nav-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; letter-spacing: 0.5px;
+    color: var(--text);
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2); text-decoration: none;
+    font-size: 13px; letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    padding: 10px 24px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; font-size: 13px; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(79,142,247,0.35);
+    transition: all 0.2s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(79,142,247,0.45);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 500px;
+    background: radial-gradient(ellipse, rgba(79,142,247,0.12) 0%, rgba(124,58,237,0.08) 40%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .hero-glow-gold {
+    position: absolute;
+    bottom: 10%; right: 10%;
+    width: 400px; height: 300px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 20px;
+    border: 1px solid rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.07);
+    color: var(--gold2); font-size: 11px; font-weight: 400;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 32px;
+    font-family: 'DM Mono', monospace;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 12px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text2);
+    max-width: 560px;
+    margin: 20px auto 48px;
+    line-height: 1.7;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex; align-items: center; gap: 16px;
+    flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    padding: 16px 36px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; font-size: 14px; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.3px;
+    box-shadow: 0 8px 32px rgba(79,142,247,0.4);
+    transition: all 0.25s;
+    border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(79,142,247,0.5);
+  }
+
+  .btn-ghost {
+    padding: 16px 36px; border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text2); font-size: 14px;
+    text-decoration: none; letter-spacing: 0.3px;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .hero-proof {
+    margin-top: 64px;
+    display: flex; align-items: center; gap: 32px;
+    justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .hero-proof-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .hero-proof-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+  }
+
+  /* DASHBOARD PREVIEW */
+  .preview-section {
+    padding: 0 24px 120px;
+    position: relative;
+  }
+
+  .preview-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .preview-frame {
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--bg2);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.06),
+      0 40px 120px rgba(0,0,0,0.8),
+      0 0 80px rgba(79,142,247,0.08);
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  .preview-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .preview-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  .preview-screen {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 480px;
+  }
+
+  .preview-sidebar {
+    background: linear-gradient(180deg, #0f1535, #090d20);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 16px;
+  }
+
+  .preview-sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 28px; padding: 0 8px;
+  }
+
+  .psl-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  .psl-text { font-size: 14px; font-weight: 600; color: white; }
+  .psl-sub { font-size: 9px; color: rgba(255,255,255,0.3); font-family: 'DM Mono', monospace; }
+
+  .preview-nav-section { margin-bottom: 20px; }
+  .preview-nav-label {
+    font-size: 9px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.5px; color: rgba(255,255,255,0.25);
+    padding: 0 12px; margin-bottom: 6px;
+  }
+
+  .preview-nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 10px; margin-bottom: 2px;
+    cursor: default;
+  }
+
+  .preview-nav-item.active {
+    background: linear-gradient(135deg, rgba(79,142,247,0.15), rgba(124,58,237,0.1));
+    border: 1px solid rgba(79,142,247,0.2);
+  }
+
+  .pni-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: #4f8ef7;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+
+  .pni-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+  }
+  .preview-nav-item.active .pni-label { color: white; font-weight: 500; }
+
+  .preview-main {
+    padding: 28px;
+    background: #0d1b3e;
+    overflow: hidden;
+  }
+
+  .preview-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .preview-page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; color: white;
+  }
+
+  .preview-page-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  .preview-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .preview-stat {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 14px;
+    position: relative; overflow: hidden;
+  }
+
+  .preview-stat::before {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 80px; height: 80px; border-radius: 50%;
+    filter: blur(20px); pointer-events: none;
+  }
+
+  .ps-blue::before { background: radial-gradient(circle, rgba(79,142,247,0.4), transparent); }
+  .ps-green::before { background: radial-gradient(circle, rgba(34,197,94,0.4), transparent); }
+  .ps-orange::before { background: radial-gradient(circle, rgba(249,115,22,0.4), transparent); }
+  .ps-purple::before { background: radial-gradient(circle, rgba(168,85,247,0.4), transparent); }
+
+  .preview-stat-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+  .preview-stat-val {
+    font-size: 20px; font-weight: 700;
+    background: linear-gradient(135deg, #4f8ef7, #7c3aed);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1;
+  }
+
+  .ps-green .preview-stat-val { background: linear-gradient(135deg, #22c55e, #06b6d4); -webkit-background-clip: text; background-clip: text; }
+  .ps-orange .preview-stat-val { background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; background-clip: text; }
+  .ps-purple .preview-stat-val { background: linear-gradient(135deg, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; }
+
+  .preview-stat-label {
+    font-size: 9px; color: rgba(255,255,255,0.4);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-top: 4px;
+  }
+
+  .preview-cards {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+  }
+
+  .preview-card {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; overflow: hidden;
+  }
+
+  .preview-card-img {
+    height: 80px;
+    background: linear-gradient(135deg, rgba(79,142,247,0.2), rgba(124,58,237,0.2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .preview-card-body { padding: 10px 12px; }
+
+  .preview-card-brand {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #4f8ef7, #7c3aed);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .preview-card-name { font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 2px; }
+  .preview-card-reg {
+    font-size: 9px; color: rgba(255,255,255,0.35);
+    font-family: 'DM Mono', monospace; margin-top: 3px;
+  }
+
+  /* FEATURES */
+  .section {
+    padding: 100px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300; line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .section-title em {
+    font-style: italic; color: var(--text2);
+  }
+
+  .section-sub {
+    font-size: 16px; color: var(--text2);
+    max-width: 500px; line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* FEATURES GRID */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 64px;
+  }
+
+  .feature-cell {
+    background: var(--bg);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .feature-cell:hover {
+    background: var(--surface);
+  }
+
+  .feature-cell::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 150px; height: 150px; border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .feature-cell:hover::before { opacity: 1; }
+  .fc-blue::before { background: radial-gradient(circle, rgba(79,142,247,0.15), transparent); }
+  .fc-gold::before { background: radial-gradient(circle, rgba(201,168,76,0.12), transparent); }
+  .fc-purple::before { background: radial-gradient(circle, rgba(124,58,237,0.15), transparent); }
+  .fc-green::before { background: radial-gradient(circle, rgba(34,197,94,0.12), transparent); }
+  .fc-orange::before { background: radial-gradient(circle, rgba(249,115,22,0.12), transparent); }
+  .fc-teal::before { background: radial-gradient(circle, rgba(6,182,212,0.12), transparent); }
+
+  .feature-icon {
+    font-size: 28px; margin-bottom: 20px;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--text); margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .feature-desc {
+    font-size: 13px; color: var(--text2);
+    line-height: 1.7; font-weight: 300;
+  }
+
+  .feature-tag {
+    display: inline-block; margin-top: 16px;
+    font-size: 10px; font-family: 'DM Mono', monospace;
+    padding: 4px 10px; border-radius: 4px;
+    background: rgba(79,142,247,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(79,142,247,0.2);
+  }
+
+  /* AI FEATURE HIGHLIGHT */
+  .ai-section {
+    padding: 100px 24px;
+    background: linear-gradient(180deg, transparent, rgba(79,142,247,0.04), transparent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+  }
+
+  .ai-score-visual {
+    position: relative;
+  }
+
+  .ai-score-card {
+    background: linear-gradient(135deg, rgba(13,21,62,0.9), rgba(9,13,32,0.9));
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: 20px; padding: 36px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(79,142,247,0.08);
+    position: relative; overflow: hidden;
+  }
+
+  .ai-score-card::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(79,142,247,0.15), transparent);
+    filter: blur(30px);
+  }
+
+  .ai-score-label {
+    font-size: 11px; font-family: 'DM Mono', monospace;
+    color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .ai-score-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px; font-weight: 300; line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+
+  .ai-score-sub {
+    font-size: 12px; color: var(--text3);
+    margin-bottom: 28px;
+  }
+
+  .ai-score-bars { display: flex; flex-direction: column; gap: 10px; }
+
+  .ai-bar-row { display: flex; align-items: center; gap: 10px; }
+  .ai-bar-label { font-size: 11px; color: var(--text2); width: 90px; flex-shrink: 0; }
+  .ai-bar-track {
+    flex: 1; height: 4px; border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .ai-bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .ai-bar-val { font-size: 11px; color: var(--text3); width: 28px; text-align: right; font-family: 'DM Mono', monospace; }
+
+  .ai-floating-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius: 12px; padding: 14px 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+
+  .ai-floating-badge-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 600; color: #1a0f00;
+    line-height: 1;
+  }
+
+  .ai-floating-badge-label {
+    font-size: 10px; color: rgba(26,15,0,0.6);
+    margin-top: 2px; font-family: 'DM Mono', monospace;
+  }
+
+  /* PRICING */
+  .pricing-section {
+    padding: 100px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 64px;
+    align-items: start;
+  }
+
+  .pricing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .pricing-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-4px);
+  }
+
+  .pricing-card.featured {
+    background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(124,58,237,0.08));
+    border: 1px solid rgba(79,142,247,0.3);
+    box-shadow: 0 0 60px rgba(79,142,247,0.1);
+  }
+
+  .pricing-card.featured:hover {
+    border-color: rgba(79,142,247,0.5);
+  }
+
+  .pricing-plan-badge {
+    display: inline-block; font-size: 10px;
+    font-family: 'DM Mono', monospace; letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 24px;
+    background: rgba(201,168,76,0.1);
+    color: var(--gold); border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .pricing-plan-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 600;
+    color: var(--text); margin-bottom: 6px;
+  }
+
+  .pricing-plan-desc {
+    font-size: 13px; color: var(--text2);
+    margin-bottom: 28px; line-height: 1.6;
+  }
+
+  .pricing-price {
+    display: flex; align-items: baseline; gap: 4px;
+    margin-bottom: 28px;
+  }
+
+  .pricing-currency { font-size: 18px; color: var(--text2); }
+
+  .pricing-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 300;
+    color: var(--text); line-height: 1;
+  }
+
+  .pricing-period { font-size: 13px; color: var(--text3); }
+
+  .pricing-features { list-style: none; margin-bottom: 32px; }
+  .pricing-features li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--text2);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .pricing-features li::before {
+    content: '✓';
+    color: var(--accent); font-size: 12px; flex-shrink: 0;
+  }
+
+  .pricing-btn {
+    display: block; width: 100%; padding: 14px;
+    border-radius: 10px; text-align: center;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.3px;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+    color: var(--text2); background: transparent;
+  }
+
+  .pricing-btn:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .pricing-btn.featured-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; color: white;
+    box-shadow: 0 8px 24px rgba(79,142,247,0.35);
+  }
+
+  .pricing-btn.featured-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px rgba(79,142,247,0.45);
+  }
+
+  /* TESTIMONIAL */
+  .testimonial-section {
+    padding: 100px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06), transparent 70%);
+    filter: blur(40px); pointer-events: none;
+  }
+
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 4vw, 44px);
+    font-weight: 300; font-style: italic;
+    color: var(--text);
+    max-width: 800px; margin: 0 auto 32px;
+    line-height: 1.3;
+    position: relative;
+  }
+
+  .testimonial-quote::before {
+    content: '"';
+    font-size: 120px; line-height: 0;
+    color: var(--gold); opacity: 0.2;
+    position: absolute; top: 30px; left: -20px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .testimonial-author {
+    font-size: 13px; color: var(--text3);
+    font-family: 'DM Mono', monospace; letter-spacing: 0.5px;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    padding: 100px 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-inner {
+    max-width: 640px; margin: 0 auto;
+    background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(124,58,237,0.08));
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: 28px; padding: 72px 48px;
+    position: relative; overflow: hidden;
+  }
+
+  .cta-inner::before {
+    content: '';
+    position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(79,142,247,0.15), transparent 70%);
+    filter: blur(40px); pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 16px; color: var(--text);
+  }
+
+  .cta-title em { font-style: italic; color: var(--text2); }
+
+  .cta-sub {
+    font-size: 15px; color: var(--text2);
+    margin-bottom: 40px; line-height: 1.6; font-weight: 300;
+  }
+
+  .cta-email-row {
+    display: flex; gap: 10px; max-width: 400px; margin: 0 auto;
+  }
+
+  .cta-email-input {
+    flex: 1; padding: 14px 18px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .cta-email-input::placeholder { color: var(--text3); }
+  .cta-email-input:focus { border-color: rgba(79,142,247,0.4); }
+
+  .cta-note {
+    font-size: 11px; color: var(--text3);
+    margin-top: 16px; font-family: 'DM Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: var(--text2);
+  }
+
+  .footer-links {
+    display: flex; gap: 28px; list-style: none; flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 12px; color: var(--text3);
+    text-decoration: none; transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text2); }
+
+  .footer-copy {
+    font-size: 11px; color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* DIVIDER LINE */
+  .divider {
+    max-width: 1100px; margin: 0 auto;
+    height: 1px; background: var(--border);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .ai-inner { grid-template-columns: 1fr; gap: 48px; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .preview-screen { grid-template-columns: 1fr; }
+    .preview-sidebar { display: none; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .cta-email-row { flex-direction: column; }
+  }
+
+  /* ── Auth modal ─────────────────────────────────────────────────────── */
+  .auth-overlay{position:fixed;inset:0;z-index:2000;background:rgba(8,10,16,.82);
+    backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;}
+  .auth-overlay.open{display:flex;}
+  .auth-card{width:100%;max-width:420px;background:#12151d;border:1px solid rgba(201,168,76,.22);
+    border-radius:16px;padding:34px 32px;position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);}
+  .auth-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#6b7280;
+    font-size:22px;cursor:pointer;line-height:1;}
+  .auth-close:hover{color:#c9a84c;}
+  .auth-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;
+    color:#f4f4f5;margin:0 0 6px;letter-spacing:-.4px;}
+  .auth-sub{font-size:13.5px;color:#9ca3af;margin:0 0 24px;line-height:1.5;}
+  .auth-field{margin-bottom:14px;}
+  .auth-label{display:block;font-size:12px;color:#9ca3af;margin-bottom:6px;
+    letter-spacing:.4px;text-transform:uppercase;}
+  .auth-input{width:100%;background:#0b0e14;border:1px solid rgba(255,255,255,.1);
+    border-radius:9px;padding:12px 14px;color:#f4f4f5;font-size:14.5px;
+    font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+  .auth-input:focus{border-color:rgba(201,168,76,.55);}
+  .auth-submit{width:100%;margin-top:8px;padding:13px;border:none;border-radius:9px;
+    background:linear-gradient(135deg,#c9a84c,#e8c97a);color:#12151d;font-size:15px;
+    font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:opacity .2s;}
+  .auth-submit:hover:not(:disabled){opacity:.9;}
+  .auth-submit:disabled{opacity:.55;cursor:not-allowed;}
+  .auth-switch{text-align:center;margin-top:18px;font-size:13px;color:#9ca3af;}
+  .auth-switch a{color:#c9a84c;cursor:pointer;text-decoration:none;}
+  .auth-switch a:hover{text-decoration:underline;}
+  .auth-msg{font-size:13px;margin-top:14px;padding:10px 12px;border-radius:8px;display:none;line-height:1.5;}
+  .auth-msg.error{display:block;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#fca5a5;}
+  .auth-msg.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:#86efac;}
+  .auth-forgot{background:none;border:none;color:#6b7280;font-size:12px;cursor:pointer;
+    text-decoration:underline;padding:0;margin-top:12px;display:block;width:100%;text-align:center;}
+  .auth-forgot:hover{color:#c9a84c;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="32" height="38" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+        fill="transparent" stroke="url(#sg-nav)" stroke-width="1.8" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="sg-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8c97a"/>
+          <stop offset="100%" stop-color="#c9a84c"/>
+        </linearGradient>
+      </defs>
+      <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
+        font-family="DM Sans, sans-serif" fill="url(#sg-nav)" letter-spacing="-0.5">CC</text>
+    </svg>
+    <span class="nav-logo-text">Fleet Pro <span style="color:#c9a84c; letter-spacing:2px; font-size:13px;">STUDIO</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#ai">Classic Car AI</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#" class="nav-signin" onclick="openAuth('signin');return false;" style="color:var(--text2);text-decoration:none;font-size:14px;margin-right:22px;">Sign in</a>
+  <a href="#" class="nav-cta" onclick="openAuth('signup');return false;">Start free trial →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-gold"></div>
+
+  <div class="hero-badge">
+    <svg width="14" height="16" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+        fill="transparent" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
+        font-family="DM Sans, sans-serif" fill="#c9a84c">CC</text>
+    </svg>
+    Classic Car Intelligence Platform
+  </div>
+
+  <h1 class="hero-title">
+    Your collection,<br><em>intelligently</em> managed.
+  </h1>
+
+  <p class="hero-subtitle">
+    Car Collector Studio is the only platform built exclusively for classic car collectors — combining fleet management, AI-powered valuations, and real market intelligence in one place.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#" class="btn-primary" onclick="openAuth('signup');return false;">
+      Start free trial
+      <span style="font-size:16px;">→</span>
+    </a>
+    <a href="#features" class="btn-ghost">
+      See all features
+    </a>
+  </div>
+
+  <div class="hero-proof">
+    <div class="hero-proof-item">
+      <div class="hero-proof-dot"></div>
+      No credit card required
+    </div>
+    <div class="hero-proof-item">
+      <div class="hero-proof-dot"></div>
+      14-day free trial
+    </div>
+    <div class="hero-proof-item">
+      <div class="hero-proof-dot"></div>
+      Cancel any time
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="preview-section">
+  <div class="preview-wrap">
+    <div class="preview-frame reveal">
+      <div class="preview-bar">
+        <div class="preview-dot" style="background:#ef4444;"></div>
+        <div class="preview-dot" style="background:#eab308;"></div>
+        <div class="preview-dot" style="background:#22c55e;"></div>
+        <div style="flex:1; text-align:center;">
+          <span style="font-size:11px; color:rgba(255,255,255,0.3); font-family:'DM Mono',monospace;">app.fleetpro.io/dashboard</span>
+        </div>
+      </div>
+      <div class="preview-screen">
+        <div class="preview-sidebar">
+          <div class="preview-sidebar-logo">
+            <svg width="28" height="32" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+                fill="transparent" stroke="url(#sg-prev)" stroke-width="2" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="sg-prev" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#e8c97a"/>
+                  <stop offset="100%" stop-color="#c9a84c"/>
+                </linearGradient>
+              </defs>
+              <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
+                font-family="DM Sans, sans-serif" fill="url(#sg-prev)">CC</text>
+            </svg>
+            <div>
+              <div class="psl-text">Fleet Pro</div>
+              <div class="psl-sub" style="color:rgba(201,168,76,0.5);">STUDIO</div>
+            </div>
+          </div>
+          <div class="preview-nav-section">
+            <div class="preview-nav-label">Main</div>
+            <div class="preview-nav-item active">
+              <div class="pni-icon">⊞</div>
+              <span class="pni-label">Dashboard</span>
+            </div>
+            <div class="preview-nav-item">
+              <div class="pni-icon">🔔</div>
+              <span class="pni-label">Alerts</span>
+            </div>
+          </div>
+          <div class="preview-nav-section">
+            <div class="preview-nav-label">Fleet</div>
+            <div class="preview-nav-item">
+              <div class="pni-icon">🚗</div>
+              <span class="pni-label">Vehicles</span>
+            </div>
+            <div class="preview-nav-item">
+              <div class="pni-icon">🧠</div>
+              <span class="pni-label">Classic Car AI</span>
+            </div>
+            <div class="preview-nav-item">
+              <div class="pni-icon">📊</div>
+              <span class="pni-label">Reports</span>
+            </div>
+          </div>
+          <div class="preview-nav-section">
+            <div class="preview-nav-label">Records</div>
+            <div class="preview-nav-item">
+              <div class="pni-icon">🛡️</div>
+              <span class="pni-label">Insurance</span>
+            </div>
+            <div class="preview-nav-item">
+              <div class="pni-icon">📋</div>
+              <span class="pni-label">Road Tax</span>
+            </div>
+          </div>
+        </div>
+        <div class="preview-main">
+          <div class="preview-topbar">
+            <div>
+              <div class="preview-page-title">Dashboard</div>
+              <div class="preview-page-sub">Welcome back, Alexis 👋</div>
+            </div>
+          </div>
+          <div class="preview-stats">
+            <div class="preview-stat ps-blue">
+              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#4f8ef7,#7c3aed); box-shadow:0 0 8px rgba(79,142,247,0.6);"></div>
+              <div class="preview-stat-val">12</div>
+              <div class="preview-stat-label">Total Vehicles</div>
+            </div>
+            <div class="preview-stat ps-green">
+              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#22c55e,#06b6d4); box-shadow:0 0 8px rgba(34,197,94,0.6);"></div>
+              <div class="preview-stat-val">€1.4M</div>
+              <div class="preview-stat-label">Fleet Value</div>
+            </div>
+            <div class="preview-stat ps-orange">
+              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#f97316,#eab308); box-shadow:0 0 8px rgba(249,115,22,0.6);"></div>
+              <div class="preview-stat-val">3</div>
+              <div class="preview-stat-label">Active Alerts</div>
+            </div>
+            <div class="preview-stat ps-purple">
+              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#a855f7,#ec4899); box-shadow:0 0 8px rgba(168,85,247,0.6);"></div>
+              <div class="preview-stat-val">€38K</div>
+              <div class="preview-stat-label">Total Expenses</div>
+            </div>
+          </div>
+          <div class="preview-cards">
+            <div class="preview-card">
+              <div class="preview-card-img">🏎️</div>
+              <div class="preview-card-body">
+                <div class="preview-card-brand">Porsche</div>
+                <div class="preview-card-name">911 Carrera RS</div>
+                <div class="preview-card-reg">REG · 1973</div>
+              </div>
+            </div>
+            <div class="preview-card">
+              <div class="preview-card-img">🚗</div>
+              <div class="preview-card-body">
+                <div class="preview-card-brand">Ferrari</div>
+                <div class="preview-card-name">308 GTS</div>
+                <div class="preview-card-reg">REG · 1981</div>
+              </div>
+            </div>
+            <div class="preview-card">
+              <div class="preview-card-img">🏁</div>
+              <div class="preview-card-body">
+                <div class="preview-card-brand">BMW</div>
+                <div class="preview-card-name">M5 Touring</div>
+                <div class="preview-card-reg">REG · 2000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="reveal">
+    <div class="section-label">Everything you need</div>
+    <h2 class="section-title">Built for the serious<br><em>collector</em></h2>
+    <p class="section-sub">Every feature designed around how classic car collectors actually think, work, and protect their investments.</p>
+  </div>
+
+  <div class="features-grid reveal">
+    <div class="feature-cell fc-gold">
+      <span class="feature-icon">🧠</span>
+      <div class="feature-title">Classic Car AI</div>
+      <p class="feature-desc">Our proprietary Collector Score rates your vehicle across condition, originality, rarity, provenance, and market demand — then the AI Calculator generates a precise valuation based on 12 real market sources.</p>
+      <span class="feature-tag">Unique to Car Collector Studio</span>
+    </div>
+    <div class="feature-cell fc-blue">
+      <span class="feature-icon">🔍</span>
+      <div class="feature-title">Market Comparables</div>
+      <p class="feature-desc">Automatically scrape comparable sales across US, UK, EU, Cyprus, France, Italy, and Netherlands. Know what your car is really worth today, not six months ago.</p>
+    </div>
+    <div class="feature-cell fc-purple">
+      <span class="feature-icon">🚨</span>
+      <div class="feature-title">Alert Centre</div>
+      <p class="feature-desc">Never let an insurance policy lapse or a road tax expire. Car Collector Studio monitors every document across your entire fleet and sends you email alerts before anything becomes critical.</p>
+    </div>
+    <div class="feature-cell fc-green">
+      <span class="feature-icon">📊</span>
+      <div class="feature-title">Fleet Reports</div>
+      <p class="feature-desc">Beautiful cost breakdowns, spending trends, and fleet analytics. See exactly where your money goes across insurance, maintenance, road tax, and running costs — per vehicle or across the whole fleet.</p>
+    </div>
+    <div class="feature-cell fc-orange">
+      <span class="feature-icon">👥</span>
+      <div class="feature-title">Team Access</div>
+      <p class="feature-desc">Invite your estate manager, mechanics, and advisors. Four permission levels — Owner, Admin, Editor, Viewer — with vehicle-level access control so everyone sees exactly what they should.</p>
+    </div>
+    <div class="feature-cell fc-teal">
+      <span class="feature-icon">📁</span>
+      <div class="feature-title">Document Vault</div>
+      <p class="feature-desc">Store every document against every vehicle — title deeds, service records, insurance certificates, mechanical reports. Organised, searchable, always at hand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI HIGHLIGHT -->
+<section class="ai-section" id="ai">
+  <div class="ai-inner">
+    <div class="ai-score-visual reveal">
+      <div class="ai-score-card">
+        <div class="ai-score-label">Collector Score</div>
+        <div class="ai-score-val">87</div>
+        <div class="ai-score-sub">out of 100 · Excellent</div>
+        <div class="ai-score-bars">
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Condition</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:92%;"></div></div>
+            <span class="ai-bar-val">92</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Originality</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:85%;"></div></div>
+            <span class="ai-bar-val">85</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Rarity</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:78%;"></div></div>
+            <span class="ai-bar-val">78</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Provenance</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:95%;"></div></div>
+            <span class="ai-bar-val">95</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Market Demand</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:82%;"></div></div>
+            <span class="ai-bar-val">82</span>
+          </div>
+        </div>
+      </div>
+      <div class="ai-floating-badge">
+        <div class="ai-floating-badge-val">€285,000</div>
+        <div class="ai-floating-badge-label">AI estimated value</div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="section-label">Classic Car AI</div>
+      <h2 class="section-title">The only platform<br>that <em>understands</em><br>collector cars</h2>
+      <p class="section-sub" style="margin-bottom:24px;">
+        Generic fleet software treats a 1973 Porsche 911 RS the same as a company van. Car Collector Studio doesn't. Our Collector Score analyses every factor that actually determines a classic car's value — and feeds it directly into an AI Calculator backed by real market comparables.
+      </p>
+      <p class="section-sub">
+        The result: a valuation you can actually stand behind when talking to insurers, buyers, or estate managers.
+      </p>
+      <a href="#" class="btn-primary" style="display:inline-flex; margin-top:36px;" onclick="openAuth('signup');return false;">
+        Try it free → 
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="reveal" style="text-align:center; margin-bottom:0;">
+    <div class="section-label" style="display:block; text-align:center; margin-bottom:16px;">Simple pricing</div>
+    <h2 class="section-title" style="text-align:center;">Choose your <em>plan</em></h2>
+    <p class="section-sub" style="margin: 0 auto; text-align:center;">Start free for 14 days. No credit card required.</p>
+  </div>
+
+  <div class="pricing-grid reveal">
+    <div class="pricing-card">
+      <span class="pricing-plan-badge">Collector</span>
+      <div class="pricing-plan-name">Collector</div>
+      <div class="pricing-plan-desc">For the individual collector managing a small fleet.</div>
+      <div class="pricing-price">
+        <span class="pricing-currency">€</span>
+        <span class="pricing-amount">19</span>
+        <span class="pricing-period">/month</span>
+      </div>
+      <ul class="pricing-features">
+        <li>Up to 5 vehicles</li>
+        <li>Full fleet management</li>
+        <li>Insurance &amp; road tax alerts</li>
+        <li>Document vault</li>
+        <li>Basic AI valuation</li>
+        <li>1 user</li>
+      </ul>
+      <a href="#" class="pricing-btn" onclick="openAuth('signup');return false;">Start free trial</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <span class="pricing-plan-badge" style="background:rgba(79,142,247,0.15); color:var(--accent); border-color:rgba(79,142,247,0.3);">Most popular</span>
+      <div class="pricing-plan-name">Enthusiast</div>
+      <div class="pricing-plan-desc">For serious collectors who want the full AI intelligence suite.</div>
+      <div class="pricing-price">
+        <span class="pricing-currency">€</span>
+        <span class="pricing-amount">49</span>
+        <span class="pricing-period">/month</span>
+      </div>
+      <ul class="pricing-features">
+        <li>Up to 15 vehicles</li>
+        <li>Everything in Collector</li>
+        <li>Full Classic Car AI</li>
+        <li>12-source market comparables</li>
+        <li>AI market analysis reports</li>
+        <li>Up to 3 users</li>
+        <li>Email alert notifications</li>
+      </ul>
+      <a href="#" class="pricing-btn featured-btn" onclick="openAuth('signup');return false;">Start free trial</a>
+    </div>
+
+    <div class="pricing-card">
+      <span class="pricing-plan-badge">Curator</span>
+      <div class="pricing-plan-name">Curator</div>
+      <div class="pricing-plan-desc">For large collections, family offices, and dealerships.</div>
+      <div class="pricing-price">
+        <span class="pricing-currency">€</span>
+        <span class="pricing-amount">99</span>
+        <span class="pricing-period">/month</span>
+      </div>
+      <ul class="pricing-features">
+        <li>Unlimited vehicles</li>
+        <li>Everything in Enthusiast</li>
+        <li>Unlimited team members</li>
+        <li>Dedicated instance option</li>
+        <li>White-label branding</li>
+        <li>Priority support</li>
+        <li>Custom onboarding</li>
+      </ul>
+      <a href="#" class="pricing-btn" onclick="openAuth('signup');return false;">Start free trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div class="testimonial-glow"></div>
+  <div class="testimonial-quote reveal">
+    Finally, a platform that understands that a matching-numbers Ferrari and a daily driver are not the same thing.
+  </div>
+  <div class="testimonial-author reveal">— Early access collector, 14-vehicle fleet</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="trial">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Ready to manage your<br><em>collection intelligently?</em></h2>
+    <p class="cta-sub">Join collectors who use Car Collector Studio to protect, track, and grow the value of their fleet. Start free — no credit card needed.</p>
+    <div class="cta-email-row">
+      <input type="email" class="cta-email-input" id="cta-email" placeholder="your@email.com"
+             onkeydown="if(event.key==='Enter'){openAuth('signup',this.value);}">
+      <a href="#" class="btn-primary" style="white-space:nowrap;"
+         onclick="openAuth('signup', document.getElementById('cta-email').value); return false;">Get started →</a>
+    </div>
+    <p class="cta-note">14-day free trial · No credit card · Cancel any time</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" style="display:flex; align-items:center; gap:10px;">
+    <svg width="24" height="28" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+        fill="transparent" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
+        font-family="DM Sans, sans-serif" fill="#c9a84c">CC</text>
+    </svg>
+    Fleet Pro <span style="color:#c9a84c; margin-left:4px; font-size:14px; letter-spacing:2px;">STUDIO</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#ai">Classic Car AI</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Terms</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Car Collector Studio</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+
+<!-- ── Auth modal ───────────────────────────────────────────────────────── -->
+<div class="auth-overlay" id="auth-overlay" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()">&times;</button>
+    <h2 class="auth-title" id="auth-title">Start your free trial</h2>
+    <p class="auth-sub" id="auth-sub">14 days free · No credit card required</p>
+
+    <form id="auth-form" onsubmit="submitAuth(event)">
+      <div class="auth-field" id="name-field">
+        <label class="auth-label" for="auth-name">Full name</label>
+        <input class="auth-input" type="text" id="auth-name" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="auth-email">Email</label>
+        <input class="auth-input" type="email" id="auth-email" required autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="auth-password">Password</label>
+        <input class="auth-input" type="password" id="auth-password" required
+               autocomplete="current-password" minlength="6">
+      </div>
+      <button class="auth-submit" type="submit" id="auth-submit">Create account</button>
+    </form>
+
+    <div class="auth-msg" id="auth-msg"></div>
+
+    <div class="auth-switch" id="auth-switch">
+      Already have an account? <a onclick="setMode('signin')">Sign in</a>
+    </div>
+    <button class="auth-forgot" id="auth-forgot" onclick="sendReset()" style="display:none;">
+      Forgot your password?
+    </button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   Auth — the landing page is the single entry point. Sign-up and sign-in
+   happen here, then the user is handed to the app.
+
+   NOTE ON THE HANDOFF: Supabase keeps its session in localStorage, which is
+   scoped to the ORIGIN. A session created on carcollectorstudio.com is NOT
+   visible at app.carcollectorstudio.com. So we pass the tokens in the URL
+   FRAGMENT (after #), which browsers never send to the server and which
+   supabase-js picks up automatically via detectSessionInUrl. The app strips
+   it from the address bar on arrival.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const SUPABASE_URL = 'https://soxhpqgyffwsnneznpdm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_uv2RmHZiI-GfJvwq6A4WAg_H3cdW0ZI';
+const APP_URL      = 'https://app.carcollectorstudio.com';
+
+let authMode = 'signup';
+
+function openAuth(mode, prefillEmail) {
+  setMode(mode || 'signup');
+  if (prefillEmail) document.getElementById('auth-email').value = prefillEmail;
+  document.getElementById('auth-overlay').classList.add('open');
+  setTimeout(() => {
+    const f = prefillEmail ? 'auth-password' : (authMode === 'signup' ? 'auth-name' : 'auth-email');
+    document.getElementById(f).focus();
+  }, 60);
+}
+
+function closeAuth() {
+  document.getElementById('auth-overlay').classList.remove('open');
+  showMsg('', null);
+}
+
+function setMode(mode) {
+  authMode = mode;
+  const signup = mode === 'signup';
+  document.getElementById('auth-title').textContent = signup ? 'Start your free trial' : 'Welcome back';
+  document.getElementById('auth-sub').textContent   = signup
+    ? '14 days free · No credit card required'
+    : 'Sign in to your collection';
+  document.getElementById('name-field').style.display = signup ? 'block' : 'none';
+  document.getElementById('auth-submit').textContent  = signup ? 'Create account' : 'Sign in';
+  document.getElementById('auth-password').setAttribute('autocomplete', signup ? 'new-password' : 'current-password');
+  document.getElementById('auth-switch').innerHTML = signup
+    ? 'Already have an account? <a onclick="setMode(\'signin\')">Sign in</a>'
+    : "Don't have an account? <a onclick=\"setMode('signup')\">Start free trial</a>";
+  document.getElementById('auth-forgot').style.display = signup ? 'none' : 'block';
+  showMsg('', null);
+}
+
+function showMsg(text, kind) {
+  const el = document.getElementById('auth-msg');
+  el.textContent = text;
+  el.className = 'auth-msg' + (kind ? ' ' + kind : '');
+}
+
+function busy(on, label) {
+  const b = document.getElementById('auth-submit');
+  b.disabled = on;
+  b.textContent = on ? 'Please wait…' : label;
+}
+
+async function submitAuth(e) {
+  e.preventDefault();
+  const email    = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value;
+  const name     = document.getElementById('auth-name').value.trim();
+  const signup   = authMode === 'signup';
+  busy(true);
+  showMsg('', null);
+
+  try {
+    const endpoint = signup ? '/auth/v1/signup' : '/auth/v1/token?grant_type=password';
+    const body = signup
+      ? { email, password, data: { full_name: name } }
+      : { email, password };
+
+    const res = await fetch(SUPABASE_URL + endpoint, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      showMsg(data.error_description || data.msg || data.message || 'Something went wrong', 'error');
+      busy(false, signup ? 'Create account' : 'Sign in');
+      return;
+    }
+
+    // Signup with email confirmation on: no session is returned yet.
+    if (!data.access_token) {
+      showMsg('Check your email to confirm your account, then sign in. '
+            + 'It may land in your spam folder.', 'ok');
+      busy(false, 'Create account');
+      return;
+    }
+
+    handoffToApp(data.access_token, data.refresh_token);
+  } catch (err) {
+    showMsg('Network error: ' + err.message, 'error');
+    busy(false, signup ? 'Create account' : 'Sign in');
+  }
+}
+
+function handoffToApp(accessToken, refreshToken) {
+  showMsg('Signed in — taking you to your collection…', 'ok');
+  const frag = new URLSearchParams({
+    access_token:  accessToken,
+    refresh_token: refreshToken,
+    token_type:    'bearer',
+    type:          'signin',
+  });
+  window.location.href = APP_URL + '/#' + frag.toString();
+}
+
+async function sendReset() {
+  const email = document.getElementById('auth-email').value.trim();
+  if (!email) { showMsg('Enter your email address first', 'error'); return; }
+  try {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/recover', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, redirect_to: APP_URL + '/reset-password' }),
+    });
+    if (res.ok) showMsg('Password reset link sent — check your email (and spam).', 'ok');
+    else showMsg('Could not send reset email', 'error');
+  } catch (err) {
+    showMsg('Network error: ' + err.message, 'error');
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAuth(); });
+</script>
+
+</body>
+</html>
