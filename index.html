@@ -75,6 +75,20 @@
     color: var(--text);
   }
 
+  .nav-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-signin {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-signin:hover { color: var(--text); }
   .nav-links {
     display: flex; align-items: center; gap: 36px;
     list-style: none;
@@ -920,6 +934,51 @@
   .auth-forgot{background:none;border:none;color:#6b7280;font-size:12px;cursor:pointer;
     text-decoration:underline;padding:0;margin-top:12px;display:block;width:100%;text-align:center;}
   .auth-forgot:hover{color:#c9a84c;}
+
+  /* ── Product carousel ───────────────────────────────────────────────── */
+  .carousel { position: relative; }
+  .car-stage {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: #0b0e14;
+    overflow: hidden;
+  }
+  .car-slide {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    opacity: 0; transition: opacity 0.55s ease;
+  }
+  .car-slide.active { opacity: 1; }
+  .car-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(12,15,22,0.72); backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #f4f4f5; font-size: 24px; line-height: 1;
+    cursor: pointer; z-index: 3; transition: background 0.2s, border-color 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .car-arrow:hover { background: rgba(201,168,76,0.28); border-color: rgba(201,168,76,0.6); }
+  .car-arrow.prev { left: -21px; }
+  .car-arrow.next { right: -21px; }
+  .car-caption { text-align: center; margin-top: 26px; }
+  .car-caption h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; color: #f4f4f5; margin: 0 0 6px;
+  }
+  .car-caption p { font-size: 14px; color: #9ca3af; margin: 0; }
+  .car-dots { display: flex; justify-content: center; gap: 9px; margin-top: 18px; }
+  .car-dot {
+    width: 7px; height: 7px; border-radius: 50%; cursor: pointer;
+    background: rgba(255,255,255,0.2); border: none; padding: 0;
+    transition: background 0.25s, width 0.25s;
+  }
+  .car-dot.active { background: #c9a84c; width: 22px; border-radius: 4px; }
+  @media (max-width: 860px) {
+    .car-arrow.prev { left: 6px; }
+    .car-arrow.next { right: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -939,15 +998,17 @@
       <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
         font-family="DM Sans, sans-serif" fill="url(#sg-nav)" letter-spacing="-0.5">CC</text>
     </svg>
-    <span class="nav-logo-text">Fleet Pro <span style="color:#c9a84c; letter-spacing:2px; font-size:13px;">STUDIO</span></span>
+    <span class="nav-logo-text">Car Collector <span style="color:#c9a84c; letter-spacing:2px; font-size:13px;">STUDIO</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#ai">Classic Car AI</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <a href="#" class="nav-signin" onclick="openAuth('signin');return false;" style="color:var(--text2);text-decoration:none;font-size:14px;margin-right:22px;">Sign in</a>
-  <a href="#" class="nav-cta" onclick="openAuth('signup');return false;">Start free trial →</a>
+  <div class="nav-actions">
+    <a href="#" class="nav-signin" onclick="openAuth('signin');return false;">Sign in</a>
+    <a href="#" class="nav-cta" onclick="openAuth('signup');return false;">Start free trial</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -999,133 +1060,38 @@
   </div>
 </section>
 
-<!-- DASHBOARD PREVIEW -->
-<section class="preview-section">
+<!-- PRODUCT CAROUSEL -->
+<section class="preview-section" id="screens">
   <div class="preview-wrap">
-    <div class="preview-frame reveal">
-      <div class="preview-bar">
-        <div class="preview-dot" style="background:#ef4444;"></div>
-        <div class="preview-dot" style="background:#eab308;"></div>
-        <div class="preview-dot" style="background:#22c55e;"></div>
-        <div style="flex:1; text-align:center;">
-          <span style="font-size:11px; color:rgba(255,255,255,0.3); font-family:'DM Mono',monospace;">app.fleetpro.io/dashboard</span>
+    <div class="carousel reveal">
+      <div class="preview-frame">
+        <div class="preview-bar">
+          <div class="preview-dot" style="background:#ef4444;"></div>
+          <div class="preview-dot" style="background:#eab308;"></div>
+          <div class="preview-dot" style="background:#22c55e;"></div>
+          <div style="flex:1; text-align:center;">
+            <span id="car-url" style="font-size:11px; color:rgba(255,255,255,0.3); font-family:'DM Mono',monospace;">app.carcollectorstudio.com/dashboard</span>
+          </div>
+        </div>
+        <div class="car-stage">
+          <!-- Drop your screenshots into /public/screens/ with these names. -->
+          <img class="car-slide active" src="/screens/dashboard.png" alt="Fleet dashboard with portfolio value and alerts">
+          <img class="car-slide"        src="/screens/valuation.png" alt="AI valuation and collector score">
+          <img class="car-slide"        src="/screens/comparables.png" alt="Comparable sales matched from 438,000 listings">
+          <img class="car-slide"        src="/screens/vehicle.png"   alt="Vehicle record with full history">
+          <img class="car-slide"        src="/screens/passport.png"  alt="Printable vehicle passport">
         </div>
       </div>
-      <div class="preview-screen">
-        <div class="preview-sidebar">
-          <div class="preview-sidebar-logo">
-            <svg width="28" height="32" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-              <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
-                fill="transparent" stroke="url(#sg-prev)" stroke-width="2" stroke-linejoin="round"/>
-              <defs>
-                <linearGradient id="sg-prev" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#e8c97a"/>
-                  <stop offset="100%" stop-color="#c9a84c"/>
-                </linearGradient>
-              </defs>
-              <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
-                font-family="DM Sans, sans-serif" fill="url(#sg-prev)">CC</text>
-            </svg>
-            <div>
-              <div class="psl-text">Fleet Pro</div>
-              <div class="psl-sub" style="color:rgba(201,168,76,0.5);">STUDIO</div>
-            </div>
-          </div>
-          <div class="preview-nav-section">
-            <div class="preview-nav-label">Main</div>
-            <div class="preview-nav-item active">
-              <div class="pni-icon">⊞</div>
-              <span class="pni-label">Dashboard</span>
-            </div>
-            <div class="preview-nav-item">
-              <div class="pni-icon">🔔</div>
-              <span class="pni-label">Alerts</span>
-            </div>
-          </div>
-          <div class="preview-nav-section">
-            <div class="preview-nav-label">Fleet</div>
-            <div class="preview-nav-item">
-              <div class="pni-icon">🚗</div>
-              <span class="pni-label">Vehicles</span>
-            </div>
-            <div class="preview-nav-item">
-              <div class="pni-icon">🧠</div>
-              <span class="pni-label">Classic Car AI</span>
-            </div>
-            <div class="preview-nav-item">
-              <div class="pni-icon">📊</div>
-              <span class="pni-label">Reports</span>
-            </div>
-          </div>
-          <div class="preview-nav-section">
-            <div class="preview-nav-label">Records</div>
-            <div class="preview-nav-item">
-              <div class="pni-icon">🛡️</div>
-              <span class="pni-label">Insurance</span>
-            </div>
-            <div class="preview-nav-item">
-              <div class="pni-icon">📋</div>
-              <span class="pni-label">Road Tax</span>
-            </div>
-          </div>
-        </div>
-        <div class="preview-main">
-          <div class="preview-topbar">
-            <div>
-              <div class="preview-page-title">Dashboard</div>
-              <div class="preview-page-sub">Welcome back, Alexis 👋</div>
-            </div>
-          </div>
-          <div class="preview-stats">
-            <div class="preview-stat ps-blue">
-              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#4f8ef7,#7c3aed); box-shadow:0 0 8px rgba(79,142,247,0.6);"></div>
-              <div class="preview-stat-val">12</div>
-              <div class="preview-stat-label">Total Vehicles</div>
-            </div>
-            <div class="preview-stat ps-green">
-              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#22c55e,#06b6d4); box-shadow:0 0 8px rgba(34,197,94,0.6);"></div>
-              <div class="preview-stat-val">€1.4M</div>
-              <div class="preview-stat-label">Fleet Value</div>
-            </div>
-            <div class="preview-stat ps-orange">
-              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#f97316,#eab308); box-shadow:0 0 8px rgba(249,115,22,0.6);"></div>
-              <div class="preview-stat-val">3</div>
-              <div class="preview-stat-label">Active Alerts</div>
-            </div>
-            <div class="preview-stat ps-purple">
-              <div class="preview-stat-dot" style="background:linear-gradient(135deg,#a855f7,#ec4899); box-shadow:0 0 8px rgba(168,85,247,0.6);"></div>
-              <div class="preview-stat-val">€38K</div>
-              <div class="preview-stat-label">Total Expenses</div>
-            </div>
-          </div>
-          <div class="preview-cards">
-            <div class="preview-card">
-              <div class="preview-card-img">🏎️</div>
-              <div class="preview-card-body">
-                <div class="preview-card-brand">Porsche</div>
-                <div class="preview-card-name">911 Carrera RS</div>
-                <div class="preview-card-reg">REG · 1973</div>
-              </div>
-            </div>
-            <div class="preview-card">
-              <div class="preview-card-img">🚗</div>
-              <div class="preview-card-body">
-                <div class="preview-card-brand">Ferrari</div>
-                <div class="preview-card-name">308 GTS</div>
-                <div class="preview-card-reg">REG · 1981</div>
-              </div>
-            </div>
-            <div class="preview-card">
-              <div class="preview-card-img">🏁</div>
-              <div class="preview-card-body">
-                <div class="preview-card-brand">BMW</div>
-                <div class="preview-card-name">M5 Touring</div>
-                <div class="preview-card-reg">REG · 2000</div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+      <button class="car-arrow prev" onclick="carGo(-1)" aria-label="Previous">‹</button>
+      <button class="car-arrow next" onclick="carGo(1)"  aria-label="Next">›</button>
+
+      <div class="car-caption">
+        <h3 id="car-title">Your whole collection, at a glance</h3>
+        <p id="car-text">Every car, every renewal, every valuation — in one place.</p>
       </div>
+
+      <div class="car-dots" id="car-dots"></div>
     </div>
   </div>
 </section>
@@ -1337,7 +1303,7 @@
       <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
         font-family="DM Sans, sans-serif" fill="#c9a84c">CC</text>
     </svg>
-    Fleet Pro <span style="color:#c9a84c; margin-left:4px; font-size:14px; letter-spacing:2px;">STUDIO</span>
+    Car Collector <span style="color:#c9a84c; margin-left:4px; font-size:14px; letter-spacing:2px;">STUDIO</span>
   </div>
   <ul class="footer-links">
     <li><a href="#features">Features</a></li>
@@ -1532,6 +1498,79 @@ async function sendReset() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAuth(); });
+</script>
+
+
+<script>
+/* Product carousel — screenshots of the real app. */
+const CAR_SLIDES = [
+  { title: 'Your whole collection, at a glance',
+    text:  'Every car, every renewal, every valuation — in one place.',
+    url:   'app.carcollectorstudio.com/dashboard' },
+  { title: 'Valuations grounded in real sales',
+    text:  'A collector score and market estimate built from comparable sales, not guesswork.',
+    url:   'app.carcollectorstudio.com/classic-car-intelligence' },
+  { title: '438,000 sold listings, matched to your car',
+    text:  'Exact specification matching — generation, variant and body style, not just make and model.',
+    url:   'app.carcollectorstudio.com/classic-car-intelligence' },
+  { title: 'Every document, service and expense',
+    text:  'Insurance, road tax, inspections, restoration costs — the full history of each car.',
+    url:   'app.carcollectorstudio.com/vehicles' },
+  { title: 'A passport buyers take seriously',
+    text:  'Print a complete, documented history when it comes time to sell.',
+    url:   'app.carcollectorstudio.com/passport' },
+];
+
+let carIndex = 0, carTimer = null;
+
+function carRender() {
+  const slides = document.querySelectorAll('.car-slide');
+  slides.forEach((el, i) => el.classList.toggle('active', i === carIndex));
+  document.querySelectorAll('.car-dot').forEach((d, i) => d.classList.toggle('active', i === carIndex));
+  const meta = CAR_SLIDES[carIndex] || {};
+  const t = document.getElementById('car-title');
+  const x = document.getElementById('car-text');
+  const u = document.getElementById('car-url');
+  if (t) t.textContent = meta.title || '';
+  if (x) x.textContent = meta.text || '';
+  if (u) u.textContent = meta.url || '';
+}
+
+function carGo(step) {
+  const n = document.querySelectorAll('.car-slide').length;
+  if (!n) return;
+  carIndex = (carIndex + step + n) % n;
+  carRender();
+  carRestart();
+}
+
+function carSet(i) { carIndex = i; carRender(); carRestart(); }
+
+function carRestart() {
+  clearInterval(carTimer);
+  carTimer = setInterval(() => carGo(1), 6000);
+}
+
+(function carInit() {
+  const stage = document.querySelectorAll('.car-slide');
+  const dots = document.getElementById('car-dots');
+  if (!stage.length || !dots) return;
+  stage.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'car-dot' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', 'Slide ' + (i + 1));
+    b.onclick = () => carSet(i);
+    dots.appendChild(b);
+  });
+  carRender();
+  carRestart();
+  // Pause while hovered — nobody wants a slide changing as they read it.
+  const wrap = document.querySelector('.carousel');
+  if (wrap) {
+    wrap.addEventListener('mouseenter', () => clearInterval(carTimer));
+    wrap.addEventListener('mouseleave', carRestart);
+  }
+})();
 </script>
 
 </body>
