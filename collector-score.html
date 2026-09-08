@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collector Score: How It's Calculated | Car Collector Studio</title>
+<meta name="description" content="Collector Score grades a classic car on condition, originality, rarity, provenance and market demand — a structured way to understand where a car sits, not a replacement for a professional appraisal.">
+<link rel="canonical" href="https://carcollectorstudio.com/collector-score">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Car Collector Studio">
+<meta property="og:title" content="Collector Score: How It's Calculated | Car Collector Studio">
+<meta property="og:description" content="A structured score across condition, originality, rarity, provenance and market demand — giving context to where a car sits, not a black-box number.">
+<meta property="og:url" content="https://carcollectorstudio.com/collector-score">
+<meta property="og:image" content="https://carcollectorstudio.com/screens/valuation.png">
+<meta property="og:image:width" content="2374">
+<meta property="og:image:height" content="1263">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Collector Score: How It's Calculated | Car Collector Studio">
+<meta name="twitter:description" content="A structured score across condition, originality, rarity, provenance and market demand — giving context to where a car sits, not a black-box number.">
+<meta name="twitter:image" content="https://carcollectorstudio.com/screens/valuation.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://carcollectorstudio.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Collector Score", "item": "https://carcollectorstudio.com/collector-score" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Collector Score a precise mathematical valuation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Collector Score is a structured way to grade a car across five dimensions and give context to where it sits relative to comparable vehicles. It informs the estimated market value shown in Car Intelligence, but it is not a certified appraisal or a guaranteed sale price." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the five dimensions?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Condition, originality, rarity, provenance and market demand. Each is graded individually, and together they produce the overall Collector Score shown on a vehicle's record." }
+    },
+    {
+      "@type": "Question",
+      "name": "Who sets the score — me or Car Collector Studio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The score is generated from the details you record about a vehicle — condition, documentation, provenance and specification — combined with comparable market data. The more complete a vehicle's record, the more informative its score." }
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="site-nav">
+  <a href="/" class="nav-logo" aria-label="Car Collector Studio home">
+    <svg width="30" height="35" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+        fill="transparent" stroke="url(#sg-nav)" stroke-width="1.8" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="sg-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8c97a"/>
+          <stop offset="100%" stop-color="#c9a84c"/>
+        </linearGradient>
+      </defs>
+      <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
+        font-family="DM Sans, sans-serif" fill="url(#sg-nav)" letter-spacing="-0.5">CC</text>
+    </svg>
+    <span class="nav-logo-text">Car Collector <span style="color:#c9a84c; letter-spacing:2px; font-size:12px;">STUDIO</span></span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-drop">
+      <button class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Product
+        <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+      </button>
+      <div class="nav-drop-panel">
+        <a href="/collection-management"><strong>Collection Management</strong><span>Vehicles, documents, service, insurance</span></a>
+        <a href="/car-intelligence"><strong>Car Intelligence</strong><span>Comparables and vehicle characteristics</span></a>
+        <a href="/collector-score"><strong>Collector Score</strong><span>The five-factor collectability score</span></a>
+        <a href="/market-data"><strong>Market Data</strong><span>438,000+ listings and comparable sales</span></a>
+      </div>
+    </li>
+    <li class="nav-drop">
+      <button class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Resources
+        <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+      </button>
+      <div class="nav-drop-panel">
+        <a href="/insights"><strong>Insights</strong><span>Guides on valuation, provenance, ownership</span></a>
+        <a href="/market"><strong>Market</strong><span>Browse makes and models</span></a>
+        <a href="mailto:support@carcollectorstudio.com"><strong>Help &amp; Support</strong><span>Reach the team directly</span></a>
+      </div>
+    </li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-signin" onclick="openAuth('signin')">Sign in</button>
+    <button class="nav-cta" onclick="openAuth('signup')">Start Free</button>
+  </div>
+  <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" onclick="toggleMobileNav(true)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="toggleMobileNav(false)"></div>
+<div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobile-nav-top">
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="toggleMobileNav(false)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li class="mobile-nav-group-label">Product</li>
+    <li><a class="mobile-nav-sublink" href="/collection-management" onclick="toggleMobileNav(false)">Collection Management</a></li>
+    <li><a class="mobile-nav-sublink" href="/car-intelligence" onclick="toggleMobileNav(false)">Car Intelligence</a></li>
+    <li><a class="mobile-nav-sublink" href="/collector-score" onclick="toggleMobileNav(false)">Collector Score</a></li>
+    <li><a class="mobile-nav-sublink" href="/market-data" onclick="toggleMobileNav(false)">Market Data</a></li>
+    <li class="mobile-nav-group mobile-nav-group-label">Resources</li>
+    <li><a class="mobile-nav-sublink" href="/insights" onclick="toggleMobileNav(false)">Insights</a></li>
+    <li><a class="mobile-nav-sublink" href="/market" onclick="toggleMobileNav(false)">Market</a></li>
+    <li><a class="mobile-nav-sublink" href="mailto:support@carcollectorstudio.com">Help &amp; Support</a></li>
+    <li style="margin-top:10px;"><a href="/pricing" onclick="toggleMobileNav(false)">Pricing</a></li>
+  </ul>
+  <div class="mobile-nav-actions">
+    <button class="mobile-nav-signin" onclick="toggleMobileNav(false); openAuth('signin')">Sign in</button>
+    <button class="mobile-nav-cta" onclick="toggleMobileNav(false); openAuth('signup')">Start Free</button>
+  </div>
+</div>
+
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><span class="bc-sep">/</span></li>
+    <li aria-current="page"><span>Collector Score</span></li>
+  </ol>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-eyebrow reveal">Collector Score</div>
+  <h1 class="reveal">A structured way to<br>understand <em>your car</em></h1>
+  <p class="lede reveal">Collector Score grades a car across five dimensions — condition, originality, rarity, provenance and market demand — giving you a consistent way to understand where it sits, not a single opaque number.</p>
+  <div class="hero-actions reveal">
+    <button class="btn-primary" onclick="openAuth('signup')">
+      Score Your Car
+      <span style="font-size:15px;">→</span>
+    </button>
+    <a href="/car-intelligence" class="btn-ghost">See It Used In Car Intelligence</a>
+  </div>
+</section>
+
+<!-- SCORE VISUAL -->
+<section class="ai-section" style="padding-top:0;">
+  <div class="ai-inner">
+    <div class="ai-score-visual reveal">
+      <div class="ai-score-card">
+        <div class="ai-score-top">
+          <div class="score-ring">
+            <svg viewBox="0 0 128 128" width="128" height="128" aria-hidden="true">
+              <circle cx="64" cy="64" r="54" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9"/>
+              <circle cx="64" cy="64" r="54" fill="none" stroke="url(#scoreGrad3)" stroke-width="9"
+                stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="44.1"/>
+              <defs>
+                <linearGradient id="scoreGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#c9a84c"/>
+                  <stop offset="100%" stop-color="#e8c97a"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-ring-num">
+              <strong>87</strong>
+              <span>/ 100</span>
+            </div>
+          </div>
+          <div>
+            <div class="ai-score-label">Collector Score</div>
+            <div class="ai-score-name">1973 Porsche 911 RS</div>
+            <span class="ai-score-rating">Excellent</span>
+          </div>
+        </div>
+        <div class="ai-score-bars">
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Condition</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:92%;"></div></div>
+            <span class="ai-bar-val">92</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Originality</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:85%;"></div></div>
+            <span class="ai-bar-val">85</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Rarity</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:78%;"></div></div>
+            <span class="ai-bar-val">78</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Provenance</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:95%;"></div></div>
+            <span class="ai-bar-val">95</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Market Demand</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:82%;"></div></div>
+            <span class="ai-bar-val">82</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="section-label">The five dimensions</div>
+      <h2 class="section-title">What Collector Score<br><em>actually measures</em></h2>
+      <p class="section-sub" style="max-width:none;">Each dimension is graded individually, then combined into a single score that gives quick, consistent context — useful for comparing your own cars, or understanding how one compares to its matched listings.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIMENSION BREAKDOWN -->
+<section class="section" id="dimensions" style="padding-top:0;">
+  <div class="score-dims-grid reveal">
+    <div class="cap-cell">
+      <h3 class="cap-title">Condition</h3>
+      <p class="cap-desc">The vehicle's mechanical and cosmetic state, from the details recorded in its record and documentation.</p>
+    </div>
+    <div class="cap-cell">
+      <h3 class="cap-title">Originality</h3>
+      <p class="cap-desc">How much of the car remains as it left the factory — original components, finish and specification.</p>
+    </div>
+    <div class="cap-cell">
+      <h3 class="cap-title">Rarity</h3>
+      <p class="cap-desc">How uncommon the specific generation, variant or special edition is within the wider market.</p>
+    </div>
+    <div class="cap-cell">
+      <h3 class="cap-title">Provenance</h3>
+      <p class="cap-desc">Documented ownership history, notable past owners, and the completeness of the paper trail.</p>
+    </div>
+    <div class="cap-cell">
+      <h3 class="cap-title">Market demand</h3>
+      <p class="cap-desc">Recent activity for comparable vehicles — how actively that generation and variant is being bought and sold.</p>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer-box reveal" style="max-width:820px; margin:0 auto 40px;">
+  <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg></span>
+  <p>Collector Score is a structured, consistent way to compare vehicles — it is not a precise mathematical formula or a certified appraisal, and it should be treated as a reference point rather than a guarantee of value or sale price.</p>
+</div>
+
+<div class="reveal" style="text-align:center; padding-bottom:56px;">
+  <a href="/car-intelligence" class="link-arrow">See Collector Score used in a real valuation →</a>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="reveal">
+    <div class="section-label" style="text-align:center;">Questions</div>
+    <h2 class="section-title" style="text-align:center;">Collector Score, <em>explained</em></h2>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Is Collector Score a precise mathematical valuation?
+        <span class="faq-q-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a"><p>No. Collector Score is a structured way to grade a car across five dimensions and give context to where it sits relative to comparable vehicles. It informs the estimated market value shown in Car Intelligence, but it is not a certified appraisal or a guaranteed sale price.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        What are the five dimensions?
+        <span class="faq-q-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a"><p>Condition, originality, rarity, provenance and market demand. Each is graded individually, and together they produce the overall Collector Score shown on a vehicle's record.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Who sets the score — me or Car Collector Studio?
+        <span class="faq-q-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a"><p>The score is generated from the details you record about a vehicle — condition, documentation, provenance and specification — combined with comparable market data. The more complete a vehicle's record, the more informative its score.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Get your car's<br><em>Collector Score</em></h2>
+    <p class="cta-sub">14 days free. Add your car and see its score in minutes.</p>
+    <div class="cta-actions">
+      <button class="btn-primary" onclick="openAuth('signup')">
+        Score Your Car
+        <span style="font-size:15px;">→</span>
+      </button>
+      <a href="/pricing" class="btn-ghost">See Pricing</a>
+    </div>
+    <p class="cta-note">14-day free trial · No credit card · Cancel any time</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand-mark">
+          <svg width="22" height="26" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+              fill="transparent" stroke="#c9a84c" stroke-width="2.2" stroke-linejoin="round"/>
+            <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
+              font-family="DM Sans, sans-serif" fill="#c9a84c">CC</text>
+          </svg>
+          Car Collector <span style="color:#c9a84c; margin-left:4px; font-size:13px; letter-spacing:2px;">STUDIO</span>
+        </div>
+        <p class="footer-brand-tag">Intelligence for serious collections.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Product</div>
+        <ul class="footer-col-links">
+          <li><a href="/collection-management">Collection Management</a></li>
+          <li><a href="/car-intelligence">Car Intelligence</a></li>
+          <li><a href="/collector-score">Collector Score</a></li>
+          <li><a href="/market-data">Market Data</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Market</div>
+        <ul class="footer-col-links">
+          <li><a href="/market">Market Overview</a></li>
+          <li><a href="/market/porsche/911">Porsche 911 (example)</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-col-links">
+          <li><a href="/insights">Insights</a></li>
+          <li><a href="mailto:support@carcollectorstudio.com">Help &amp; Support</a></li>
+          <li><a href="mailto:support@carcollectorstudio.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="/#security">Security &amp; Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Account</div>
+        <ul class="footer-col-links">
+          <li><button onclick="openAuth('signin')">Sign In</button></li>
+          <li><button onclick="openAuth('signup')">Start Free</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© <span id="footer-year">2026</span> Car Collector Studio</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Auth modal -->
+<div class="auth-overlay" id="auth-overlay" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close">&times;</button>
+    <h2 class="auth-title" id="auth-title">Start your free trial</h2>
+    <p class="auth-sub" id="auth-sub">14 days free · No credit card required</p>
+
+    <form id="auth-form" onsubmit="submitAuth(event)">
+      <div class="auth-field" id="name-field">
+        <label class="auth-label" for="auth-name">Full name</label>
+        <input class="auth-input" type="text" id="auth-name" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="auth-email">Email</label>
+        <input class="auth-input" type="email" id="auth-email" required autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="auth-password">Password</label>
+        <input class="auth-input" type="password" id="auth-password" required
+               autocomplete="current-password" minlength="6">
+      </div>
+      <button class="auth-submit" type="submit" id="auth-submit">Create account</button>
+    </form>
+
+    <div class="auth-msg" id="auth-msg" role="status"></div>
+
+    <div class="auth-switch" id="auth-switch">
+      Already have an account? <a onclick="setMode('signin')">Sign in</a>
+    </div>
+    <button class="auth-forgot" id="auth-forgot" onclick="sendReset()" style="display:none;">
+      Forgot your password?
+    </button>
+  </div>
+</div>
+
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

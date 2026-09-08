@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porsche 911 Market Data (Example) | Car Collector Studio</title>
+<meta name="description" content="An example of Car Collector Studio's model-level market page format for the Porsche 911 — illustrating how generation, body style and variant data will be presented.">
+<link rel="canonical" href="https://carcollectorstudio.com/market/porsche/911">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Car Collector Studio">
+<meta property="og:title" content="Porsche 911 Market Data (Example) | Car Collector Studio">
+<meta property="og:description" content="An illustrative example of Car Collector Studio's model-level market page format, using the Porsche 911.">
+<meta property="og:url" content="https://carcollectorstudio.com/market/porsche/911">
+<meta property="og:image" content="https://carcollectorstudio.com/screens/comparables.png">
+<meta property="og:image:width" content="2374">
+<meta property="og:image:height" content="1263">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Porsche 911 Market Data (Example) | Car Collector Studio">
+<meta name="twitter:description" content="An illustrative example of Car Collector Studio's model-level market page format, using the Porsche 911.">
+<meta name="twitter:image" content="https://carcollectorstudio.com/screens/comparables.png">
+
+<meta name="robots" content="noindex, follow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://carcollectorstudio.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Market Overview", "item": "https://carcollectorstudio.com/market" },
+    { "@type": "ListItem", "position": 3, "name": "Porsche", "item": "https://carcollectorstudio.com/market/porsche" },
+    { "@type": "ListItem", "position": 4, "name": "911", "item": "https://carcollectorstudio.com/market/porsche/911" }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="site-nav">
+  <a href="/" class="nav-logo" aria-label="Car Collector Studio home">
+    <svg width="30" height="35" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+        fill="transparent" stroke="url(#sg-nav)" stroke-width="1.8" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="sg-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8c97a"/>
+          <stop offset="100%" stop-color="#c9a84c"/>
+        </linearGradient>
+      </defs>
+      <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
+        font-family="DM Sans, sans-serif" fill="url(#sg-nav)" letter-spacing="-0.5">CC</text>
+    </svg>
+    <span class="nav-logo-text">Car Collector <span style="color:#c9a84c; letter-spacing:2px; font-size:12px;">STUDIO</span></span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-drop">
+      <button class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Product
+        <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+      </button>
+      <div class="nav-drop-panel">
+        <a href="/collection-management"><strong>Collection Management</strong><span>Vehicles, documents, service, insurance</span></a>
+        <a href="/car-intelligence"><strong>Car Intelligence</strong><span>Comparables and vehicle characteristics</span></a>
+        <a href="/collector-score"><strong>Collector Score</strong><span>The five-factor collectability score</span></a>
+        <a href="/market-data"><strong>Market Data</strong><span>438,000+ listings and comparable sales</span></a>
+      </div>
+    </li>
+    <li class="nav-drop">
+      <button class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Resources
+        <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+      </button>
+      <div class="nav-drop-panel">
+        <a href="/insights"><strong>Insights</strong><span>Guides on valuation, provenance, ownership</span></a>
+        <a href="/market"><strong>Market</strong><span>Browse makes and models</span></a>
+        <a href="mailto:support@carcollectorstudio.com"><strong>Help &amp; Support</strong><span>Reach the team directly</span></a>
+      </div>
+    </li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-signin" onclick="openAuth('signin')">Sign in</button>
+    <button class="nav-cta" onclick="openAuth('signup')">Start Free</button>
+  </div>
+  <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" onclick="toggleMobileNav(true)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="toggleMobileNav(false)"></div>
+<div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobile-nav-top">
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="toggleMobileNav(false)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li class="mobile-nav-group-label">Product</li>
+    <li><a class="mobile-nav-sublink" href="/collection-management" onclick="toggleMobileNav(false)">Collection Management</a></li>
+    <li><a class="mobile-nav-sublink" href="/car-intelligence" onclick="toggleMobileNav(false)">Car Intelligence</a></li>
+    <li><a class="mobile-nav-sublink" href="/collector-score" onclick="toggleMobileNav(false)">Collector Score</a></li>
+    <li><a class="mobile-nav-sublink" href="/market-data" onclick="toggleMobileNav(false)">Market Data</a></li>
+    <li class="mobile-nav-group mobile-nav-group-label">Resources</li>
+    <li><a class="mobile-nav-sublink" href="/insights" onclick="toggleMobileNav(false)">Insights</a></li>
+    <li><a class="mobile-nav-sublink" href="/market" onclick="toggleMobileNav(false)">Market</a></li>
+    <li><a class="mobile-nav-sublink" href="mailto:support@carcollectorstudio.com">Help &amp; Support</a></li>
+    <li style="margin-top:10px;"><a href="/pricing" onclick="toggleMobileNav(false)">Pricing</a></li>
+  </ul>
+  <div class="mobile-nav-actions">
+    <button class="mobile-nav-signin" onclick="toggleMobileNav(false); openAuth('signin')">Sign in</button>
+    <button class="mobile-nav-cta" onclick="toggleMobileNav(false); openAuth('signup')">Start Free</button>
+  </div>
+</div>
+
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><span class="bc-sep">/</span></li>
+    <li><a href="/market">Market Overview</a></li>
+    <li><span class="bc-sep">/</span></li>
+    <li aria-current="page"><span>Porsche 911</span></li>
+  </ol>
+</nav>
+
+<div class="example-banner reveal" style="margin-top:0;">
+  <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg></span>
+  <span><strong>Illustrative example.</strong> This page demonstrates the format planned for individual model pages. It does not display live aggregate figures for the Porsche 911 — real per-model data will populate this layout as it becomes available.</span>
+</div>
+
+<section class="page-hero">
+  <div class="hero-eyebrow reveal">Market Overview / Porsche</div>
+  <h1 class="reveal">Porsche 911 <em>market data</em></h1>
+  <p class="lede reveal">The 911 spans multiple generations, body styles and special editions — from early long-hood cars through the 930 Turbo to modern water-cooled variants. A model page like this one is built to keep those distinctions intact rather than averaging them together.</p>
+</section>
+
+<!-- ILLUSTRATIVE STRUCTURE -->
+<section class="section" id="structure" style="padding-top:0;">
+  <div class="market-overview-grid reveal">
+    <div class="market-overview-stat">
+      <div class="val">—</div>
+      <div class="lbl">Matched listings</div>
+    </div>
+    <div class="market-overview-stat">
+      <div class="val">—</div>
+      <div class="lbl">Estimated range</div>
+    </div>
+    <div class="market-overview-stat">
+      <div class="val">—</div>
+      <div class="lbl">Generations tracked</div>
+    </div>
+  </div>
+  <p class="section-sub reveal" style="max-width:640px; margin:24px auto 0; text-align:center;">Figures are intentionally left blank here — this example does not use invented numbers. On a live model page, this row would show real matched-listing counts and ranges drawn from the same database used in Car Intelligence.</p>
+</section>
+
+<!-- VARIANT TAXONOMY -->
+<section class="how-section" id="variants">
+  <div class="how-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label" style="text-align:center;">Planned structure</div>
+      <h2 class="section-title" style="text-align:center;">Generations &amp; <em>variants</em></h2>
+    </div>
+    <div class="how-steps reveal">
+      <div class="how-step">
+        <div class="how-step-num">930</div>
+        <h3 class="how-step-title">911 Turbo (930)</h3>
+        <p class="how-step-desc">The original 911 Turbo, produced 1975–1989 — a distinct generation and variant from the naturally aspirated cars of the same era.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">964</div>
+        <h3 class="how-step-title">911 Carrera (964)</h3>
+        <p class="how-step-desc">The first major reengineering of the 911, 1989–1994, spanning Coupe, Cabriolet and Targa body styles.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">993</div>
+        <h3 class="how-step-title">911 Carrera (993)</h3>
+        <p class="how-step-desc">The last air-cooled 911, 1994–1998 — widely regarded as a distinct and sought-after generation in its own right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="reveal" style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; padding-bottom:56px;">
+  <a href="/market-data" class="link-arrow">Explore Market Data →</a>
+  <a href="/car-intelligence" class="link-arrow">Explore Car Intelligence →</a>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Own a 911 — or something else <em>entirely?</em></h2>
+    <p class="cta-sub">Add it to Car Collector Studio and see its real matched comparables, not an example.</p>
+    <div class="cta-actions">
+      <button class="btn-primary" onclick="openAuth('signup')">
+        Try It Free
+        <span style="font-size:15px;">→</span>
+      </button>
+      <a href="/pricing" class="btn-ghost">See Pricing</a>
+    </div>
+    <p class="cta-note">14-day free trial · No credit card · Cancel any time</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand-mark">
+          <svg width="22" height="26" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+              fill="transparent" stroke="#c9a84c" stroke-width="2.2" stroke-linejoin="round"/>
+            <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
+              font-family="DM Sans, sans-serif" fill="#c9a84c">CC</text>
+          </svg>
+          Car Collector <span style="color:#c9a84c; margin-left:4px; font-size:13px; letter-spacing:2px;">STUDIO</span>
+        </div>
+        <p class="footer-brand-tag">Intelligence for serious collections.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Product</div>
+        <ul class="footer-col-links">
+          <li><a href="/collection-management">Collection Management</a></li>
+          <li><a href="/car-intelligence">Car Intelligence</a></li>
+          <li><a href="/collector-score">Collector Score</a></li>
+          <li><a href="/market-data">Market Data</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Market</div>
+        <ul class="footer-col-links">
+          <li><a href="/market">Market Overview</a></li>
+          <li><a href="/market/porsche/911">Porsche 911 (example)</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-col-links">
+          <li><a href="/insights">Insights</a></li>
+          <li><a href="mailto:support@carcollectorstudio.com">Help &amp; Support</a></li>
+          <li><a href="mailto:support@carcollectorstudio.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="/#security">Security &amp; Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Account</div>
+        <ul class="footer-col-links">
+          <li><button onclick="openAuth('signin')">Sign In</button></li>
+          <li><button onclick="openAuth('signup')">Start Free</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© <span id="footer-year">2026</span> Car Collector Studio</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Auth modal -->
+<div class="auth-overlay" id="auth-overlay" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close">&times;</button>
+    <h2 class="auth-title" id="auth-title">Start your free trial</h2>
+    <p class="auth-sub" id="auth-sub">14 days free · No credit card required</p>
+
+    <form id="auth-form" onsubmit="submitAuth(event)">
+      <div class="auth-field" id="name-field">
+        <label class="auth-label" for="auth-name">Full name</label>
+        <input class="auth-input" type="text" id="auth-name" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="auth-email">Email</label>
+        <input class="auth-input" type="email" id="auth-email" required autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label" for="auth-password">Password</label>
+        <input class="auth-input" type="password" id="auth-password" required
+               autocomplete="current-password" minlength="6">
+      </div>
+      <button class="auth-submit" type="submit" id="auth-submit">Create account</button>
+    </form>
+
+    <div class="auth-msg" id="auth-msg" role="status"></div>
+
+    <div class="auth-switch" id="auth-switch">
+      Already have an account? <a onclick="setMode('signin')">Sign in</a>
+    </div>
+    <button class="auth-forgot" id="auth-forgot" onclick="sendReset()" style="display:none;">
+      Forgot your password?
+    </button>
+  </div>
+</div>
+
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
