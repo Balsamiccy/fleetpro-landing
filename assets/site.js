@@ -4,6 +4,23 @@
    so the marketing site behaves as one product rather than per-page copies.
    ══════════════════════════════════════════════════════════════════════════ */
 
+/* ── Analytics hook ───────────────────────────────────────────────────────
+   No analytics provider is wired in yet — see build/ANALYTICS.md. This is a
+   thin, provider-agnostic event hook so instrumentation can be added later
+   in one place rather than touching every call site again. Every event name
+   fired from this file and from page markup is documented there.
+
+   To wire in a provider, fill in the body below — for example:
+     window.gtag && window.gtag('event', event, props);           // GA4
+     window.plausible && window.plausible(event, { props });       // Plausible
+     window.fathom && window.fathom.trackEvent(event);             // Fathom
+     window.va && window.va('event', { name: event, ...props });   // Vercel Analytics
+   Never send VIN, registration numbers, uploaded document names, private
+   collection values, or anything beyond what's listed in build/ANALYTICS.md. */
+function track(event, props = {}) {
+  if (window.__CCS_DEBUG_ANALYTICS__) console.log('[analytics]', event, props);
+}
+
 /* Scroll-in reveal */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -180,12 +197,14 @@ async function submitAuth(e) {
 
     // Signup with email confirmation on: no session is returned yet.
     if (!data.access_token) {
+      if (signup) track('signup_outbound', { confirmation_required: true });
       showMsg('Check your email to confirm your account, then sign in. '
             + 'It may land in your spam folder.', 'ok');
       busy(false, 'Create account');
       return;
     }
 
+    if (signup) track('signup_outbound', { confirmation_required: false });
     handoffToApp(data.access_token, data.refresh_token);
   } catch (err) {
     showMsg('Network error: ' + err.message, 'error');

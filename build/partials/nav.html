@@ -1,0 +1,76 @@
+<!-- NAV -->
+<nav id="site-nav">
+  <a href="/" class="nav-logo" aria-label="Car Collector Studio home">
+    <svg width="30" height="35" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M19 2 L35 9 L35 24 Q35 36 19 42 Q3 36 3 24 L3 9 Z"
+        fill="transparent" stroke="url(#sg-nav)" stroke-width="1.8" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="sg-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8c97a"/>
+          <stop offset="100%" stop-color="#c9a84c"/>
+        </linearGradient>
+      </defs>
+      <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
+        font-family="DM Sans, sans-serif" fill="url(#sg-nav)" letter-spacing="-0.5">CC</text>
+    </svg>
+    <span class="nav-logo-text">Car Collector <span style="color:#c9a84c; letter-spacing:2px; font-size:12px;">STUDIO</span></span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-drop">
+      <button class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Product
+        <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+      </button>
+      <div class="nav-drop-panel">
+        <a href="/collection-management"><strong>Collection Management</strong><span>Vehicles, documents, service, insurance</span></a>
+        <a href="/car-intelligence"><strong>Car Intelligence</strong><span>Comparables and vehicle characteristics</span></a>
+        <a href="/collector-score"><strong>Collector Score</strong><span>The five-factor collectability score</span></a>
+        <a href="/market-data"><strong>Market Data</strong><span>438,000+ listings and comparable sales</span></a>
+      </div>
+    </li>
+    <li class="nav-drop">
+      <button class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Resources
+        <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+      </button>
+      <div class="nav-drop-panel">
+        <a href="/insights"><strong>Insights</strong><span>Guides on valuation, provenance, ownership</span></a>
+        <a href="/market"><strong>Market</strong><span>Browse makes and models</span></a>
+        <a href="mailto:support@carcollectorstudio.com"><strong>Help &amp; Support</strong><span>Reach the team directly</span></a>
+      </div>
+    </li>
+    <li><a href="/pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-signin" onclick="openAuth('signin')">Sign in</button>
+    <button class="nav-cta" onclick="track('nav_start_free'); openAuth('signup')">Start Free</button>
+  </div>
+  <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" onclick="toggleMobileNav(true)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="toggleMobileNav(false)"></div>
+<div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobile-nav-top">
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="toggleMobileNav(false)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li class="mobile-nav-group-label">Product</li>
+    <li><a class="mobile-nav-sublink" href="/collection-management" onclick="toggleMobileNav(false)">Collection Management</a></li>
+    <li><a class="mobile-nav-sublink" href="/car-intelligence" onclick="toggleMobileNav(false)">Car Intelligence</a></li>
+    <li><a class="mobile-nav-sublink" href="/collector-score" onclick="toggleMobileNav(false)">Collector Score</a></li>
+    <li><a class="mobile-nav-sublink" href="/market-data" onclick="toggleMobileNav(false)">Market Data</a></li>
+    <li class="mobile-nav-group mobile-nav-group-label">Resources</li>
+    <li><a class="mobile-nav-sublink" href="/insights" onclick="toggleMobileNav(false)">Insights</a></li>
+    <li><a class="mobile-nav-sublink" href="/market" onclick="toggleMobileNav(false)">Market</a></li>
+    <li><a class="mobile-nav-sublink" href="mailto:support@carcollectorstudio.com">Help &amp; Support</a></li>
+    <li style="margin-top:10px;"><a href="/pricing" onclick="toggleMobileNav(false)">Pricing</a></li>
+  </ul>
+  <div class="mobile-nav-actions">
+    <button class="mobile-nav-signin" onclick="toggleMobileNav(false); openAuth('signin')">Sign in</button>
+    <button class="mobile-nav-cta" onclick="track('nav_start_free'); toggleMobileNav(false); openAuth('signup')">Start Free</button>
+  </div>
+</div>

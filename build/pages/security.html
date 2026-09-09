@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security &amp; Privacy | Car Collector Studio</title>
+<meta name="description" content="How Car Collector Studio protects private collections — role-gated access, audited support requests, and infrastructure choices, explained plainly.">
+<link rel="canonical" href="https://carcollectorstudio.com/security">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Car Collector Studio">
+<meta property="og:title" content="Security & Privacy | Car Collector Studio">
+<meta property="og:description" content="Private collections deserve serious protection. Here's how we approach it.">
+<meta property="og:url" content="https://carcollectorstudio.com/security">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Security & Privacy | Car Collector Studio">
+<meta name="twitter:description" content="Private collections deserve serious protection. Here's how we approach it.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://carcollectorstudio.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Security & Privacy", "item": "https://carcollectorstudio.com/security" }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+{{NAV}}
+
+<!-- BREADCRUMBS -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><span class="bc-sep">/</span></li>
+    <li aria-current="page"><span>Security &amp; Privacy</span></li>
+  </ol>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-eyebrow reveal">Security &amp; Privacy</div>
+  <h1 class="reveal">Private collections deserve<br><em>serious protection</em></h1>
+  <p class="lede reveal">Documentation, valuations and provenance records are sensitive. Here's plainly how we approach protecting them — what's in place today, and what we don't claim.</p>
+</section>
+
+<div class="article-prose reveal" style="padding-top:0; padding-bottom:24px;">
+  <h2>Authentication</h2>
+  <p>Sign-in is handled through Supabase Auth. Your session is verified on every request that touches your data — nothing is inferred client-side and trusted blindly.</p>
+
+  <h2>Role-based administrative access</h2>
+  <p>Our own staff do not have blanket access to customer data. Administrative access is split into five distinct roles (support, data, finance, technical and super admin), and every administrative action is checked against an explicit, server-side list of what that role is allowed to do. There's no fallback "section" permission that could silently grant more than intended — each action is enumerated individually, and anything not explicitly permitted is denied by default.</p>
+
+  <h2>Controlled, consent-based support access</h2>
+  <p>Viewing a customer's vehicles, valuations, documents or other records requires an active, time-limited access grant — not simply an admin role. A blanket "view everything" path does not exist in our support tooling; access is scoped, expires automatically, and can be revoked.</p>
+
+  <h2>Audit logging</h2>
+  <p>Administrative actions — access requests, account changes, support access grants and revocations — are written to an audit log. That log cannot be modified or erased by a client-side request: writes are only possible through our controlled server-side process, which is what keeps the log meaningful as a record of what happened.</p>
+
+  <h2>Service-role credentials never reach the browser</h2>
+  <p>The single most privileged credential in our infrastructure — the database service key — is used in exactly one place, our server-side administrative function, and is never sent to or stored in any browser. Ordinary product traffic uses a public, RLS-governed key by design: it can only do what our database access rules explicitly allow, regardless of what the client sends.</p>
+
+  <h2>Deliberate data minimisation</h2>
+  <p>Where we've built internal tools that summarise customer data for support or operational purposes, we've made a point of excluding fields those tools don't need — including things like raw payment identifiers, vehicle identification numbers, and detailed notes — rather than exposing full records by default.</p>
+
+  <h2>Payments</h2>
+  <p>Card details are handled directly by Stripe, our payment processor. We do not receive or store your full card number.</p>
+
+  <h2>Hosting and transport</h2>
+  <p>The application is served over HTTPS and hosted on Supabase (database, authentication and file storage) and Vercel (web application). Data in transit between your browser and our infrastructure is encrypted using standard TLS, consistent with both providers' platform defaults.</p>
+
+  <h2>Document access</h2>
+  <p>Documents you upload to a vehicle's vault are private to your account, plus anyone you explicitly invite as a team member on that vehicle. Team access is role-based (owner, admin, editor or viewer) and can be revoked at any time.</p>
+
+  <h2>Account and data export</h2>
+  <p>You can request an export or deletion of your account data at any time — see our <a href="/privacy">Privacy Policy</a> for how to do that.</p>
+
+  <h2>What we do not claim</h2>
+  <p>We'd rather under-promise here than over-claim. We do not currently claim SOC 2, ISO 27001, or any formal third-party security certification. We do not use end-to-end or zero-knowledge encryption — our team can, under the controlled access described above, access customer data when genuinely necessary (for support or legal reasons). We do not claim a specific data-residency guarantee beyond what our infrastructure providers publish themselves. Security is an ongoing process, not a finished state, and no online service — including ours — can guarantee absolute security.</p>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Questions about how we <em>protect your data</em>?</h2>
+    <p class="cta-sub">We're glad to walk through any of this in more detail.</p>
+    <div class="cta-actions">
+      <a href="mailto:support@carcollectorstudio.com" class="btn-primary">Contact Us</a>
+      <a href="/privacy" class="btn-ghost">See Privacy Policy</a>
+    </div>
+  </div>
+</section>
+
+{{FOOTER}}
+
+{{AUTHMODAL}}
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

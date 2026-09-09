@@ -98,7 +98,7 @@
   </ul>
   <div class="nav-actions">
     <button class="nav-signin" onclick="openAuth('signin')">Sign in</button>
-    <button class="nav-cta" onclick="openAuth('signup')">Start Free</button>
+    <button class="nav-cta" onclick="track('nav_start_free'); openAuth('signup')">Start Free</button>
   </div>
   <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" onclick="toggleMobileNav(true)">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -126,7 +126,7 @@
   </ul>
   <div class="mobile-nav-actions">
     <button class="mobile-nav-signin" onclick="toggleMobileNav(false); openAuth('signin')">Sign in</button>
-    <button class="mobile-nav-cta" onclick="toggleMobileNav(false); openAuth('signup')">Start Free</button>
+    <button class="mobile-nav-cta" onclick="track('nav_start_free'); toggleMobileNav(false); openAuth('signup')">Start Free</button>
   </div>
 </div>
 
@@ -161,13 +161,13 @@
   <p>A cold start tells you more than a warm one — ask to start the car from cold, and listen for excessive smoke, knocking, or reluctance to idle smoothly. Check fluid levels and condition: oil that looks like a milkshake can indicate a head gasket problem; coolant that's rusty or oily is worth investigating further. If you're not confident assessing mechanical condition yourself, this is the point where a marque specialist or independent inspector earns their fee many times over — particularly for higher-value cars.</p>
 
   <h2>Originality and matching numbers</h2>
-  <p>For many collector cars, how much of the vehicle remains original — engine, gearbox, interior, trim — materially affects both value and desirability. Ask directly what's been replaced, and request evidence for any "matching numbers" claim rather than taking it at face value. A car doesn't need to be 100% original to be a good purchase, but you should know what you're actually buying versus what's been represented to you.</p>
+  <p>For many collector cars, how much of the vehicle remains original — engine, gearbox, interior, trim — materially affects both value and desirability. It's one of the factors <a href="/collector-score">Collector Score</a> grades directly. Ask directly what's been replaced, and request evidence for any "matching numbers" claim rather than taking it at face value. A car doesn't need to be 100% original to be a good purchase, but you should know what you're actually buying versus what's been represented to you.</p>
 
   <h2>The test drive</h2>
   <p>Drive the car for long enough to notice how it behaves once it's properly warmed up, not just around the block. Listen for unusual noises under acceleration, braking and cornering. Check that the car tracks straight under braking and doesn't pull to one side. If the seller won't allow a proper test drive, treat that as a meaningful red flag rather than a minor inconvenience.</p>
 
   <h2>Building the record from day one</h2>
-  <p>Whatever you decide, keep everything you gather during the inspection — photographs, notes, the seller's answers to your questions, any specialist inspection report. If you do buy the car, that inspection record becomes the first entry in its ownership history with you, and it's exactly the kind of documentation that strengthens the car's provenance for whoever owns it after you.</p>
+  <p>Whatever you decide, keep everything you gather during the inspection — photographs, notes, the seller's answers to your questions, any specialist inspection report. If you do buy the car, that inspection record becomes the first entry in its <a href="/collection-management">ownership history</a> with you, and it's exactly the kind of documentation that strengthens the car's provenance — and its eventual <a href="/classic-car-valuations">valuation</a> — for whoever owns it after you.</p>
 
   <blockquote>The inspection you do before buying is the first page of the car's history under your ownership — worth keeping, not just acting on.</blockquote>
 </div>
@@ -176,6 +176,7 @@
   <div style="display:flex; flex-wrap:wrap; gap:24px;">
     <a href="/collection-management" class="link-arrow">See how to keep records organised →</a>
     <a href="/car-intelligence" class="link-arrow">Understand what drives a car's value →</a>
+    <a href="/insights/originality-vs-restoration" class="link-arrow">Originality vs restoration →</a>
   </div>
 </div>
 
@@ -185,7 +186,7 @@
     <h2 class="cta-title">Keep the record <em>from day one</em></h2>
     <p class="cta-sub">14 days free. Add your car and start its documented history today.</p>
     <div class="cta-actions">
-      <button class="btn-primary" onclick="openAuth('signup')">
+      <button class="btn-primary" onclick="track('insights_article_cta'); openAuth('signup')">
         Add Your First Car
         <span style="font-size:15px;">→</span>
       </button>
@@ -239,7 +240,15 @@
       <div>
         <div class="footer-col-title">Company</div>
         <ul class="footer-col-links">
-          <li><a href="/#security">Security &amp; Privacy</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-col-links">
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
         </ul>
       </div>
       <div>
@@ -252,6 +261,10 @@
     </div>
     <div class="footer-bottom">
       <span class="footer-copy">© <span id="footer-year">2026</span> Car Collector Studio</span>
+      <div style="display:flex; gap:20px;">
+        <a href="/privacy" style="font-size:11.5px; color:var(--text3); text-decoration:none;">Privacy</a>
+        <a href="/terms" style="font-size:11.5px; color:var(--text3); text-decoration:none;">Terms</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -289,6 +302,10 @@
     <button class="auth-forgot" id="auth-forgot" onclick="sendReset()" style="display:none;">
       Forgot your password?
     </button>
+
+    <p style="font-size:11px; color:var(--text3); line-height:1.6; margin-top:18px; text-align:center;">
+      By continuing you agree to our <a href="/terms" style="color:var(--text3); text-decoration:underline;">Terms</a> and <a href="/privacy" style="color:var(--text3); text-decoration:underline;">Privacy Policy</a>.
+    </p>
   </div>
 </div>
 

@@ -895,8 +895,8 @@
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.9fr repeat(5, 1fr);
-    gap: 32px;
+    grid-template-columns: 1.7fr repeat(6, 1fr);
+    gap: 28px;
     padding-bottom: 48px;
   }
   .footer-brand-mark {
