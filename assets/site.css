@@ -1030,6 +1030,15 @@
   .auth-forgot{background:none;border:none;color:#6b7280;font-size:12px;cursor:pointer;
     text-decoration:underline;padding:0;margin-top:12px;display:block;width:100%;text-align:center;}
   .auth-forgot:hover{color:#c9a84c;}
+  .auth-google{width:100%;padding:12px;border:1px solid rgba(255,255,255,.14);border-radius:var(--radius-sm);
+    background:#14171f;color:#f4f4f5;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;
+    cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .auth-google:hover:not(:disabled){background:#1a1d27;border-color:rgba(255,255,255,.24);}
+  .auth-google:disabled{opacity:.55;cursor:not-allowed;}
+  .auth-google svg{flex-shrink:0;}
+  .auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:#6b7280;
+    font-size:11px;letter-spacing:.6px;text-transform:uppercase;}
+  .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1);}
 
 /* ═══════════════════════════════════════════════════════════════════════
    PHASE 2 — shared primitives used across the multi-page site

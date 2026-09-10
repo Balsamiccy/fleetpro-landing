@@ -223,6 +223,24 @@ function handoffToApp(accessToken, refreshToken) {
   window.location.href = APP_URL + '/#' + frag.toString();
 }
 
+// Google sign-in / sign-up — Supabase's /authorize endpoint runs the OAuth
+// redirect dance with Google and, on success, sends the browser straight to
+// APP_URL with the session tokens in the URL fragment (same shape as
+// handoffToApp below), so the app's existing token-handoff code picks it up
+// with no extra work. Requires the Google provider to be enabled in the
+// Supabase dashboard (Authentication → Providers) and APP_URL to be listed
+// under Authentication → URL Configuration → Redirect URLs.
+function signInWithGoogle() {
+  const btn = document.getElementById('auth-google');
+  if (btn) btn.disabled = true;
+  track('google_auth_outbound', { mode: authMode });
+  const params = new URLSearchParams({
+    provider: 'google',
+    redirect_to: APP_URL + '/',
+  });
+  window.location.href = SUPABASE_URL + '/auth/v1/authorize?' + params.toString();
+}
+
 async function sendReset() {
   const email = document.getElementById('auth-email').value.trim();
   if (!email) { showMsg('Enter your email address first', 'error'); return; }
