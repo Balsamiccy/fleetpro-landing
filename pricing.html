@@ -47,8 +47,8 @@
   "operatingSystem": "Web",
   "offers": [
     { "@type": "Offer", "name": "Enthusiast", "price": "19", "priceCurrency": "EUR", "url": "https://carcollectorstudio.com/pricing" },
-    { "@type": "Offer", "name": "Collector", "price": "49", "priceCurrency": "EUR", "url": "https://carcollectorstudio.com/pricing" },
-    { "@type": "Offer", "name": "Curator", "price": "99", "priceCurrency": "EUR", "url": "https://carcollectorstudio.com/pricing" }
+    { "@type": "Offer", "name": "Collector", "price": "99", "priceCurrency": "EUR", "url": "https://carcollectorstudio.com/pricing" },
+    { "@type": "Offer", "name": "Curator", "price": "149", "priceCurrency": "EUR", "url": "https://carcollectorstudio.com/pricing" }
   ]
 }
 </script>
@@ -76,6 +76,11 @@
       "@type": "Question",
       "name": "Can I cancel at any time?",
       "acceptedAnswer": { "@type": "Answer", "text": "Yes, plans are billed monthly and can be cancelled at any time." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the per-car onboarding fee?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Collector and Curator plans include a one-time €150 onboarding fee per car, covering white-glove setup of your collection data. It's waived for your first 100 cars, and there's no onboarding fee on the Enthusiast plan." }
     }
   ]
 }
@@ -206,15 +211,17 @@
       <div class="pricing-plan-desc">For serious collectors.</div>
       <div class="pricing-price">
         <span class="pricing-currency">€</span>
-        <span class="pricing-amount">49</span>
+        <span class="pricing-amount">99</span>
         <span class="pricing-period">/month</span>
+      </div>
+      <div class="pricing-onboarding-note" style="font-size:12.5px; color:var(--text3); margin:-8px 0 14px;">
+        + €150 one-time onboarding per car · <strong>free for your first 100 cars</strong>
       </div>
       <ul class="pricing-features">
         <li>Up to 15 vehicles</li>
         <li>Everything in Enthusiast</li>
         <li>Full Car Intelligence</li>
         <li>Full market comparables database</li>
-        <li>AI market analysis reports</li>
         <li>Up to 3 users</li>
         <li>Email alert notifications</li>
       </ul>
@@ -227,12 +234,16 @@
       <div class="pricing-plan-desc">For larger or advanced collections.</div>
       <div class="pricing-price">
         <span class="pricing-currency">€</span>
-        <span class="pricing-amount">99</span>
+        <span class="pricing-amount">149</span>
         <span class="pricing-period">/month</span>
+      </div>
+      <div class="pricing-onboarding-note" style="font-size:12.5px; color:var(--text3); margin:-8px 0 14px;">
+        + €150 one-time onboarding per car · <strong>free for your first 100 cars</strong>
       </div>
       <ul class="pricing-features">
         <li>Unlimited vehicles</li>
         <li>Everything in Collector</li>
+        <li>AI market intelligence reports</li>
         <li>Unlimited team members</li>
         <li>Dedicated instance option</li>
         <li>White-label branding</li>
@@ -242,6 +253,9 @@
       <button class="pricing-btn" onclick="track('pricing_plan_selected', {plan:'Curator'}); openAuth('signup')">Start free trial</button>
     </div>
   </div>
+  <p class="compare-scroll-hint" style="text-align:center; margin-top:20px;">
+    Collector and Curator plans include a one-time €150 per-car onboarding fee — <strong>waived for your first 100 cars</strong>, and for every car on Enthusiast.
+  </p>
 </section>
 
 <!-- COMPARISON TABLE -->
@@ -269,11 +283,12 @@
         <tr><th scope="row">Insurance &amp; road tax alerts</th><td>Yes</td><td>Yes</td><td>Yes</td></tr>
         <tr><th scope="row">Car Intelligence</th><td>Basic valuation</td><td>Full</td><td>Full</td></tr>
         <tr><th scope="row">Market comparables database</th><td>&mdash;</td><td>Full</td><td>Full</td></tr>
-        <tr><th scope="row">AI market analysis reports</th><td>&mdash;</td><td>Yes</td><td>Yes</td></tr>
+        <tr><th scope="row">AI market intelligence reports</th><td>&mdash;</td><td>&mdash;</td><td>Yes</td></tr>
         <tr><th scope="row">Email alert notifications</th><td>&mdash;</td><td>Yes</td><td>Yes</td></tr>
         <tr><th scope="row">Dedicated instance option</th><td>&mdash;</td><td>&mdash;</td><td>Yes</td></tr>
         <tr><th scope="row">White-label branding</th><td>&mdash;</td><td>&mdash;</td><td>Yes</td></tr>
         <tr><th scope="row">Priority support</th><td>&mdash;</td><td>&mdash;</td><td>Yes</td></tr>
+        <tr><th scope="row">Per-car onboarding fee</th><td>Free</td><td>€150 (free for first 100 cars)</td><td>€150 (free for first 100 cars)</td></tr>
       </tbody>
     </table>
   </div>
@@ -318,6 +333,13 @@
         <span class="faq-q-icon" aria-hidden="true"></span>
       </button>
       <div class="faq-a"><p>Yes, plans are billed monthly and can be cancelled at any time.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        What is the per-car onboarding fee?
+        <span class="faq-q-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a"><p>Collector and Curator plans include a one-time €150 onboarding fee per car, covering white-glove setup of your collection data. It's waived for your first 100 cars, and there's no onboarding fee on the Enthusiast plan.</p></div>
     </div>
   </div>
 </section>
