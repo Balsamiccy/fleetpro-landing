@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Collector Score: How It's Calculated | Car Collector Studio</title>
-<meta name="description" content="Collector Score grades a classic car on condition, originality, rarity, provenance and market demand — a structured way to understand where a car sits, not a replacement for a professional appraisal.">
+<meta name="description" content="Collector Score grades a classic car across eight factors — condition, originality, service history, rarity, provenance, restoration, colour and modifications — a structured way to understand where a car sits, not a replacement for a professional appraisal.">
 <link rel="canonical" href="https://carcollectorstudio.com/collector-score">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Car Collector Studio">
 <meta property="og:title" content="Collector Score: How It's Calculated | Car Collector Studio">
-<meta property="og:description" content="A structured score across condition, originality, rarity, provenance and market demand — giving context to where a car sits, not a black-box number.">
+<meta property="og:description" content="A structured score across eight factors — condition, originality, service history, rarity, provenance, restoration, colour and modifications — giving context to where a car sits, not a black-box number.">
 <meta property="og:url" content="https://carcollectorstudio.com/collector-score">
 <meta property="og:image" content="https://carcollectorstudio.com/screens/valuation.png">
 <meta property="og:image:width" content="2374">
@@ -20,7 +20,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Collector Score: How It's Calculated | Car Collector Studio">
-<meta name="twitter:description" content="A structured score across condition, originality, rarity, provenance and market demand — giving context to where a car sits, not a black-box number.">
+<meta name="twitter:description" content="A structured score across eight factors — condition, originality, service history, rarity, provenance, restoration, colour and modifications — giving context to where a car sits, not a black-box number.">
 <meta name="twitter:image" content="https://carcollectorstudio.com/screens/valuation.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,12 +45,12 @@
     {
       "@type": "Question",
       "name": "Is Collector Score a precise mathematical valuation?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. Collector Score is a structured way to grade a car across five dimensions and give context to where it sits relative to comparable vehicles. It informs the estimated market value shown in Car Intelligence, but it is not a certified appraisal or a guaranteed sale price." }
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Collector Score is a structured way to grade a car across eight factors and give context to where it sits relative to comparable vehicles. It informs the estimated market value shown in Car Intelligence, but it is not a certified appraisal or a guaranteed sale price." }
     },
     {
       "@type": "Question",
-      "name": "What are the five dimensions?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Condition, originality, rarity, provenance and market demand. Each is graded individually, and together they produce the overall Collector Score shown on a vehicle's record." }
+      "name": "What are the eight factors?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Condition, originality, service history, rarity, provenance, restoration, colour desirability and modifications. Each is graded individually, and together they produce the overall Collector Score shown on a vehicle's record." }
     },
     {
       "@type": "Question",
@@ -80,7 +80,7 @@
       <text x="19" y="27" text-anchor="middle" font-size="13" font-weight="700"
         font-family="DM Sans, sans-serif" fill="url(#sg-nav)" letter-spacing="-0.5">CC</text>
     </svg>
-    <span class="nav-logo-text">Car Collector <span style="color:#c9a84c; letter-spacing:2px; font-size:12px;">STUDIO</span></span>
+    <span class="nav-logo-text">Car Collector <span style="color:#c9a84c; letter-spacing:2px; font-size:16px;">STUDIO</span></span>
   </a>
   <ul class="nav-links">
     <li class="nav-drop">
@@ -91,7 +91,7 @@
       <div class="nav-drop-panel">
         <a href="/collection-management"><strong>Collection Management</strong><span>Vehicles, documents, service, insurance</span></a>
         <a href="/car-intelligence"><strong>Car Intelligence</strong><span>Comparables and vehicle characteristics</span></a>
-        <a href="/collector-score"><strong>Collector Score</strong><span>The five-factor collectability score</span></a>
+        <a href="/collector-score"><strong>Collector Score</strong><span>The eight-factor collectability score</span></a>
         <a href="/market-data"><strong>Market Data</strong><span>438,000+ listings and comparable sales</span></a>
       </div>
     </li>
@@ -154,11 +154,11 @@
 <section class="page-hero">
   <div class="hero-eyebrow reveal">Collector Score</div>
   <h1 class="reveal">A structured way to<br>understand <em>your car</em></h1>
-  <p class="lede reveal">Collector Score grades a car across five dimensions — condition, originality, rarity, provenance and market demand — giving you a consistent way to understand where it sits, not a single opaque number.</p>
+  <p class="lede reveal">Collector Score grades a car across eight factors — condition, originality, service history, rarity, provenance, restoration, colour and modifications — giving you a consistent way to understand where it sits, not a single opaque number.</p>
   <div class="hero-actions reveal">
     <button class="btn-primary" onclick="track('collector_score_cta'); openAuth('signup')">
       Score Your Car
-      <span style="font-size:15px;">→</span>
+      <span style="font-size:16px;">→</span>
     </button>
     <a href="/car-intelligence" class="btn-ghost">See It Used In Car Intelligence</a>
   </div>
@@ -205,6 +205,11 @@
             <span class="ai-bar-val">85</span>
           </div>
           <div class="ai-bar-row">
+            <span class="ai-bar-label">Service History</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:88%;"></div></div>
+            <span class="ai-bar-val">88</span>
+          </div>
+          <div class="ai-bar-row">
             <span class="ai-bar-label">Rarity</span>
             <div class="ai-bar-track"><div class="ai-bar-fill" style="width:78%;"></div></div>
             <span class="ai-bar-val">78</span>
@@ -215,16 +220,26 @@
             <span class="ai-bar-val">95</span>
           </div>
           <div class="ai-bar-row">
-            <span class="ai-bar-label">Market Demand</span>
-            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:82%;"></div></div>
-            <span class="ai-bar-val">82</span>
+            <span class="ai-bar-label">Restoration</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:80%;"></div></div>
+            <span class="ai-bar-val">80</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Colour Premium</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:70%;"></div></div>
+            <span class="ai-bar-val">70</span>
+          </div>
+          <div class="ai-bar-row">
+            <span class="ai-bar-label">Modifications</span>
+            <div class="ai-bar-track"><div class="ai-bar-fill" style="width:90%;"></div></div>
+            <span class="ai-bar-val">90</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="reveal">
-      <div class="section-label">The five dimensions</div>
+      <div class="section-label">The eight factors</div>
       <h2 class="section-title">What Collector Score<br><em>actually measures</em></h2>
       <p class="section-sub" style="max-width:none;">Each dimension is graded individually, then combined into a single score that gives quick, consistent context — useful for comparing your own cars, or understanding how one compares to its matched listings.</p>
     </div>
@@ -243,6 +258,10 @@
       <p class="cap-desc">How much of the car remains as it left the factory — original components, finish and specification.</p>
     </div>
     <div class="cap-cell">
+      <h3 class="cap-title">Service History</h3>
+      <p class="cap-desc">How complete the service record is, plus specialist servicing and surviving original manuals.</p>
+    </div>
+    <div class="cap-cell">
       <h3 class="cap-title">Rarity</h3>
       <p class="cap-desc">How uncommon the specific generation, variant or special edition is within the wider market.</p>
     </div>
@@ -251,8 +270,16 @@
       <p class="cap-desc">Documented ownership history, notable past owners, and the completeness of the paper trail.</p>
     </div>
     <div class="cap-cell">
-      <h3 class="cap-title">Market demand</h3>
-      <p class="cap-desc">Recent activity for comparable vehicles — how actively that generation and variant is being bought and sold.</p>
+      <h3 class="cap-title">Restoration</h3>
+      <p class="cap-desc">Whether the car is an original survivor or restored, and how well-documented that restoration is.</p>
+    </div>
+    <div class="cap-cell">
+      <h3 class="cap-title">Colour Premium</h3>
+      <p class="cap-desc">How desirable the car's factory colour is to collectors of that model.</p>
+    </div>
+    <div class="cap-cell">
+      <h3 class="cap-title">Modifications</h3>
+      <p class="cap-desc">Whether any deviations from factory spec add to, or take away from, collector appeal.</p>
     </div>
   </div>
 </section>
@@ -278,14 +305,14 @@
         Is Collector Score a precise mathematical valuation?
         <span class="faq-q-icon" aria-hidden="true"></span>
       </button>
-      <div class="faq-a"><p>No. Collector Score is a structured way to grade a car across five dimensions and give context to where it sits relative to comparable vehicles. It informs the estimated market value shown in Car Intelligence, but it is not a certified appraisal or a guaranteed sale price.</p></div>
+      <div class="faq-a"><p>No. Collector Score is a structured way to grade a car across eight factors and give context to where it sits relative to comparable vehicles. It informs the estimated market value shown in Car Intelligence, but it is not a certified appraisal or a guaranteed sale price.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">
-        What are the five dimensions?
+        What are the eight factors?
         <span class="faq-q-icon" aria-hidden="true"></span>
       </button>
-      <div class="faq-a"><p>Condition, originality, rarity, provenance and market demand. Each is graded individually, and together they produce the overall Collector Score shown on a vehicle's record.</p></div>
+      <div class="faq-a"><p>Condition, originality, service history, rarity, provenance, restoration, colour desirability and modifications. Each is graded individually, and together they produce the overall Collector Score shown on a vehicle's record.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">
@@ -305,7 +332,7 @@
     <div class="cta-actions">
       <button class="btn-primary" onclick="track('collector_score_cta'); openAuth('signup')">
         Score Your Car
-        <span style="font-size:15px;">→</span>
+        <span style="font-size:16px;">→</span>
       </button>
       <a href="/pricing" class="btn-ghost">See Pricing</a>
     </div>
@@ -325,7 +352,7 @@
             <text x="19" y="27" text-anchor="middle" font-size="12" font-weight="700"
               font-family="DM Sans, sans-serif" fill="#c9a84c">CC</text>
           </svg>
-          Car Collector <span style="color:#c9a84c; margin-left:4px; font-size:13px; letter-spacing:2px;">STUDIO</span>
+          Car Collector <span style="color:#c9a84c; margin-left:4px; font-size:16px; letter-spacing:2px;">STUDIO</span>
         </div>
         <p class="footer-brand-tag">Intelligence for serious collections.</p>
       </div>
@@ -379,8 +406,8 @@
     <div class="footer-bottom">
       <span class="footer-copy">© <span id="footer-year">2026</span> Car Collector Studio</span>
       <div style="display:flex; gap:20px;">
-        <a href="/privacy" style="font-size:11.5px; color:var(--text3); text-decoration:none;">Privacy</a>
-        <a href="/terms" style="font-size:11.5px; color:var(--text3); text-decoration:none;">Terms</a>
+        <a href="/privacy" style="font-size:16px; color:var(--text3); text-decoration:none;">Privacy</a>
+        <a href="/terms" style="font-size:16px; color:var(--text3); text-decoration:none;">Terms</a>
       </div>
     </div>
   </div>
@@ -431,7 +458,7 @@
       Forgot your password?
     </button>
 
-    <p style="font-size:11px; color:var(--text3); line-height:1.6; margin-top:18px; text-align:center;">
+    <p style="font-size:16px; color:var(--text3); line-height:1.6; margin-top:18px; text-align:center;">
       By continuing you agree to our <a href="/terms" style="color:var(--text3); text-decoration:underline;">Terms</a> and <a href="/privacy" style="color:var(--text3); text-decoration:underline;">Privacy Policy</a>.
     </p>
   </div>
